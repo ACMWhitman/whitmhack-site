@@ -1,0 +1,296 @@
+{
+  "spineNav": [
+    {
+      "id": "hero",
+      "label": "Home"
+    },
+    {
+      "id": "about",
+      "label": "About"
+    },
+    {
+      "id": "tracks",
+      "label": "Tracks"
+    },
+    {
+      "id": "schedule",
+      "label": "Schedule"
+    },
+    {
+      "id": "faq",
+      "label": "FAQ"
+    },
+    {
+      "id": "organizers",
+      "label": "Team"
+    },
+    {
+      "id": "register",
+      "label": "Register"
+    }
+  ],
+  "hero": {
+    "eyebrow": "Whitman College · CCSC Northwestern Regional Hackathon · October 9–10, 2026",
+    "title": "WhitmHack 2026",
+    "subtitle": "A 24-hour hackathon bringing together students from across Washington, Oregon, Idaho, and Northern California to tackle real problems proposed by real companies — no theoretical exercises, just build, present, and connect.",
+    "ctaLabel": "Register Right Now",
+    "ctaHref": "#register",
+    "taglines": [
+      "Real companies. Real problems. One weekend.",
+      "No CS degree required — bring an idea.",
+      "Build, pitch, and get discovered.",
+      "24 hours. 3–5 person teams. One demo."
+    ],
+    "targetDate": "2026-10-09T14:30:00-07:00"
+  },
+  "about": {
+    "eyebrow": "What is WhitmHack?",
+    "title": "Built to bridge campus and industry.",
+    "bento": [
+      {
+        "id": "mission",
+        "span": "lg",
+        "heading": "Our mission",
+        "body": "The Pacific Northwest is a growing tech corridor, but structured engagement between companies and student talent is still limited. WhitmHack connects motivated students from across the region with company-proposed challenges — giving companies fresh thinking and giving students a portfolio-ready project and a direct line to industry."
+      },
+      {
+        "id": "stat-hackers",
+        "span": "sm",
+        "heading": "50–60",
+        "body": "Students expected on campus, in teams of 3–5."
+      },
+      {
+        "id": "stat-hours",
+        "span": "sm",
+        "heading": "24 hrs",
+        "body": "Of building, mentorship, and demos."
+      },
+      {
+        "id": "community",
+        "span": "md",
+        "heading": "All skill levels welcome",
+        "body": "WhitmHack is explicitly open to non-CS students. Pre-event learnathons cover tools like Git, APIs, Webflow, and Figma, and roles like researcher, designer, and strategist count just as much as coder."
+      },
+      {
+        "id": "whitman",
+        "span": "md",
+        "heading": "Hosted at Whitman College",
+        "body": "WhitmHack runs as part of the CCSC Northwestern Regional Conference at Whitman College this October, organized by the ACM Whitman Chapter with support from the Career and Community Engagement Center (CCEC)."
+      }
+    ]
+  },
+  "tracksSection": {
+    "eyebrow": "Compete & win",
+    "title": "Challenges & Awards",
+    "tracks": [
+      {
+        "id": "company-challenges",
+        "name": "Company Challenge Tracks",
+        "description": "Each participating company pitches a real problem they're facing — teams pick a challenge and build a solution over the hackathon.",
+        "prize": "Funded from a shared company prize pool (TBD per company)",
+        "accent": "cyber-blue"
+      },
+      {
+        "id": "visionary-award",
+        "name": "Visionary Award",
+        "description": "For the best-researched solution and prototype, even if the code isn't fully functional — rewards strong thinking over polish.",
+        "prize": "TBD",
+        "accent": "electric-wheat"
+      },
+      {
+        "id": "humanities-integration",
+        "name": "Humanities Integration Award",
+        "description": "For the team that best incorporates ethical, historical, or social perspectives into their technical project.",
+        "prize": "TBD",
+        "accent": "laser-teal"
+      },
+      {
+        "id": "first-timer",
+        "name": "First-Time Hacker",
+        "description": "A dedicated category for hackers at their very first event — eligibility rules TBD.",
+        "prize": "TBD",
+        "accent": "cyber-blue"
+      }
+    ]
+  },
+  "scheduleSection": {
+    "eyebrow": "Weekend at a glance",
+    "title": "Schedule",
+    "days": [
+      {
+        "id": "day-1",
+        "label": "Day 1 · Friday, Oct 9",
+        "events": [
+          {
+            "id": "d1-kickoff",
+            "time": "2:30 PM",
+            "title": "Kickoff + Problem Pitches",
+            "workshopDetails": "Company reps present their challenges (~5–7 min each) with a quick Q&A after each. Students mingle and ask clarifying questions."
+          },
+          {
+            "id": "d1-team-formation",
+            "time": "3:30 PM",
+            "title": "Team Formation + Ideation",
+            "workshopDetails": "Participants choose a project, form teams of 3–5, and start brainstorming their approach."
+          },
+          {
+            "id": "d1-build-1",
+            "time": "4:15 PM",
+            "title": "Initial Build Sprint",
+            "workshopDetails": "Teams start building."
+          },
+          {
+            "id": "d1-dinner",
+            "time": "6:00 PM",
+            "title": "Dinner Break",
+            "workshopDetails": "Good time for informal networking with sponsors."
+          },
+          {
+            "id": "d1-build-2",
+            "time": "7:00 PM",
+            "title": "Build Sprint",
+            "workshopDetails": "Continued building."
+          },
+          {
+            "id": "d1-checkpoint",
+            "time": "10:00 PM",
+            "title": "Checkpoint",
+            "workshopDetails": "Updates and progress check-ins with organizers and mentors."
+          }
+        ]
+      },
+      {
+        "id": "day-2",
+        "label": "Day 2 · Saturday, Oct 10",
+        "events": [
+          {
+            "id": "d2-build-3",
+            "time": "8:30 AM",
+            "title": "Build Sprint",
+            "workshopDetails": "Final stretch of building before judging."
+          },
+          {
+            "id": "d2-evaluation",
+            "time": "11:00 AM",
+            "title": "Evaluation",
+            "workshopDetails": "Teams present demos and are judged on innovation, feasibility, technical quality, real-world impact, and clarity of presentation."
+          },
+          {
+            "id": "d2-awards",
+            "time": "12:00 PM",
+            "title": "Awards",
+            "workshopDetails": "Closing ceremony and awards."
+          }
+        ]
+      }
+    ]
+  },
+  "faqSection": {
+    "eyebrow": "FAQ",
+    "title": "Frequently Asked Questions",
+    "questions": [
+      {
+        "id": "who-can-attend",
+        "question": "Who can attend WhitmHack?",
+        "answer": "Students from colleges and universities across Washington, Oregon, Idaho, and Northern California are welcome — WhitmHack is explicitly designed to be open to non-CS students, not just computer science majors."
+      },
+      {
+        "id": "do-i-need-experience",
+        "question": "Do I need coding experience?",
+        "answer": "No. Pre-event learnathons cover tools like Git, APIs, and AI to help beginners feel comfortable, and roles like researcher/subject-matter-expert, designer, and strategist are just as valued as writing code."
+      },
+      {
+        "id": "team-size",
+        "question": "What is the team size?",
+        "answer": "Teams of 3–5 people."
+      },
+      {
+        "id": "ai-policy",
+        "question": "Can I use AI tools to build my project?",
+        "answer": "Yes — AI is allowed as a tool, but participants must be able to explain every line of code. Projects generated entirely from a prompt aren't allowed; teams are encouraged to use AI to reach a higher level of complexity, not to do less work."
+      },
+      {
+        "id": "cost",
+        "question": "How much does it cost?",
+        "answer": "Meals, prizes, and supplies are covered by sponsorship and CS Department support, so there's no cost to participate."
+      },
+      {
+        "id": "what-to-bring",
+        "question": "What should I bring?",
+        "answer": "Details TBD — check back closer to the event."
+      }
+    ]
+  },
+  "organizersSection": {
+    "eyebrow": "The team",
+    "title": "Organizers & Team",
+    "organizers": [
+      {
+        "id": "hayan-saab",
+        "name": "Hayan Saab",
+        "role": "ACM President"
+      },
+      {
+        "id": "nick-twum",
+        "name": "Nick Twum",
+        "role": "ACM Vice-President"
+      },
+      {
+        "id": "tabish-navaid",
+        "name": "Tabish Navaid",
+        "role": "ACM Treasurer"
+      },
+      {
+        "id": "patrick-mulikuza",
+        "name": "Patrick Mulikuza",
+        "role": "Website Designer, Board Member"
+      },
+      {
+        "id": "gauri-vaada",
+        "name": "Gauri Vaada",
+        "role": "Budgeting & Expenses Lead"
+      }
+    ]
+  },
+  "footerSection": {
+    "organizers": "Organized by the Whitman College ACM Chapter, as part of the CCSC Northwestern Regional Conference.",
+    "resourcesHeading": "Whitman CS Resources",
+    "resources": [
+      {
+        "id": "cs-dept",
+        "label": "CS Department",
+        "href": "https://www.whitman.edu/academics/majors-and-programs/computer-science"
+      },
+      {
+        "id": "advising",
+        "label": "Academic Advising",
+        "href": "https://www.whitman.edu/provost/academic-advising"
+      },
+      {
+        "id": "career-center",
+        "label": "Career Center",
+        "href": "https://www.whitman.edu/career-prep/career-and-community-engagement-center"
+      }
+    ],
+    "socialHeading": "Follow along",
+    "social": [
+      {
+        "id": "instagram",
+        "label": "Instagram",
+        "href": "#"
+      },
+      {
+        "id": "discord",
+        "label": "Discord",
+        "href": "#"
+      },
+      {
+        "id": "github",
+        "label": "GitHub",
+        "href": "#"
+      }
+    ],
+    "registerLabel": "Register",
+    "registerHref": "#register"
+  }
+}

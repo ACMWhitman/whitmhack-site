@@ -1,0 +1,230 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* CSS variables that sections update as the user scrolls, so glows/accents
+     can shift color between sections without re-rendering React. */
+  --section-accent: theme('colors.cyber-blue');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  @apply bg-deep-space text-walla-mist font-body antialiased m-0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @apply font-heading;
+}
+
+::selection {
+  background: theme('colors.electric-wheat');
+  color: theme('colors.deep-space');
+}
+
+:focus-visible {
+  outline: 2px solid theme('colors.laser-teal');
+  outline-offset: 3px;
+}
+
+/* Animated gradient headline text: the gradient itself is painted as the
+   text's background, clipped to the glyph shapes, then slid horizontally.
+   The global prefers-reduced-motion rule above already forces this
+   animation to complete instantly, so no separate override is needed here. */
+.text-gradient-shift {
+  background-image: linear-gradient(
+    90deg,
+    theme('colors.electric-wheat'),
+    theme('colors.laser-teal'),
+    theme('colors.cyber-blue'),
+    theme('colors.electric-wheat')
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 8s linear infinite;
+}
+
+@keyframes gradient-shift {
+  to {
+    background-position: 300% center;
+  }
+}
+
+/* Blinking typewriter cursor. */
+.typewriter-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Glitch hover effect: two color-shifted copies of the same text, each
+   clipped to a thin horizontal slice, jump sideways briefly then settle.
+   `.glitch-text` needs a `data-text` attribute matching its own text
+   content — that's what `content: attr(data-text)` on the pseudo-elements
+   reads from. Triggered by the `.is-glitching` class (JS-driven state),
+   not `:hover`, so it works the same for keyboard focus. */
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.glitch-text.is-glitching::before {
+  opacity: 0.85;
+  color: theme('colors.cyber-blue');
+  clip-path: polygon(0 15%, 100% 15%, 100% 32%, 0 32%);
+  animation: glitch-slice-a 0.4s steps(2, jump-end) 1 forwards;
+}
+
+.glitch-text.is-glitching::after {
+  opacity: 0.85;
+  color: theme('colors.laser-teal');
+  clip-path: polygon(0 62%, 100% 62%, 100% 78%, 0 78%);
+  animation: glitch-slice-b 0.4s steps(2, jump-end) 1 forwards;
+}
+
+@keyframes glitch-slice-a {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes glitch-slice-b {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+}
+
+/* Glassmorphism core for the Register buttons and countdown boxes (see
+   .edge-light / animate-border-spin / animate-text-flow for the other two
+   layers of that effect, applied via Tailwind utilities directly in the
+   components). `background-color` here is set with a plain (non-Tailwind)
+   custom property so the @supports fallback below can bump it to a fully
+   opaque color for browsers with no backdrop-filter support, without
+   fighting a Tailwind-generated utility of the same property. */
+.glass-core {
+  background-color: rgba(1, 12, 36, 0.75);
+}
+
+.glass-core-light {
+  background-color: rgba(239, 242, 249, 0.1);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  /* No blur support means no frosted-glass look at all — fall back to a
+     near-opaque background instead, so text sitting on top stays fully
+     readable rather than relying on a blur effect that isn't happening. */
+  .glass-core {
+    background-color: rgba(1, 12, 36, 0.96);
+  }
+
+  .glass-core-light {
+    background-color: rgba(10, 25, 63, 0.92);
+  }
+}
+
+/* Flowing gradient text: same background-clip trick as .text-gradient-shift,
+   just with its own (faster, two-tone) animation so it reads as a distinct
+   "premium" flourish reserved for the Register buttons and countdown
+   digits, rather than reusing the section-heading treatment everywhere. */
+.text-flow-wheat {
+  background-image: linear-gradient(
+    90deg,
+    theme('colors.electric-wheat'),
+    theme('colors.laser-teal'),
+    theme('colors.electric-wheat')
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Admin inline-editing styles — only visible when logged in, matching the
+   existing design system typography exactly. The dashed red border is the
+   only visual cue that distinguishes editable text from static text. */
+.admin-inline-input {
+  font: inherit;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px dashed #ff4757;
+  outline: none;
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.25rem;
+}
+
+.admin-inline-input:focus {
+  border-style: solid;
+  border-color: theme('colors.laser-teal');
+  background: rgba(44, 141, 150, 0.1);
+}
+
+.admin-editable-outline {
+  border-bottom: 1px dashed #ff4757;
+  cursor: pointer;
+}
+
+.admin-editable-outline:hover {
+  border-bottom-color: theme('colors.laser-teal');
+}

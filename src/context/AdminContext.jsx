@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useState } from 'react'
+import * as staticContent from '../data/siteContent'
 
 const API_BASE = '/api'
 const STORAGE_KEY = 'whitmhack-admin-token'
@@ -82,8 +83,13 @@ export function AdminProvider({ children }) {
       if (!res.ok) {
         throw new Error(data.error || 'Failed to fetch content')
       }
-      setContent(data)
-      return data
+      // A brand-new content store legitimately returns null until an admin
+      // saves for the first time — fall back to the bundled defaults so
+      // there's something to edit (and to seed the store with on Save),
+      // same fallback the public ContentContext already relies on.
+      const resolved = data || staticContent
+      setContent(resolved)
+      return resolved
     } catch (err) {
       setError(err.message)
       return null

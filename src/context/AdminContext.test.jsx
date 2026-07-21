@@ -107,6 +107,18 @@ describe('AdminContext', () => {
     expect(global.fetch).toHaveBeenCalledWith('/api/content')
   })
 
+  it('falls back to the bundled defaults when nothing has been saved yet', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => null }))
+    renderProbe()
+
+    fireEvent.click(screen.getByText('fetch'))
+
+    await waitFor(() => {
+      expect(screen.getByTestId('content')).not.toHaveTextContent('none')
+    })
+    expect(screen.getByTestId('content')).toHaveTextContent('WhitmHack')
+  })
+
   it('refuses to save when not authenticated', async () => {
     renderProbe()
     fireEvent.click(screen.getByText('save'))

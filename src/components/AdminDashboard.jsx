@@ -148,7 +148,7 @@ export function AdminDashboard() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-deep-space">
         <p className="font-body text-sm text-walla-mist/60">
-          {loading ? 'Loading content...' : 'No content loaded.'}
+          {loading ? 'Loading content...' : error || 'No content loaded.'}
         </p>
       </div>
     )

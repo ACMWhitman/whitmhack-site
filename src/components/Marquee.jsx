@@ -41,7 +41,14 @@ export function Marquee({
   }
 
   return (
-    <div className="relative overflow-hidden">
+    // `overflow-hidden` has to clip *some* axis (it's what hides the loop's
+    // duplicate copy sliding past the left/right edges), but CSS has no way
+    // to clip x while leaving y genuinely uncropped — setting overflow-x
+    // alone still forces y to clip too. So instead we give the clipped box
+    // extra vertical breathing room (py-4) *inside* the clip boundary,
+    // comfortably covering a hovered card's 1.03 scale-up plus its glow,
+    // so growing never reaches the edge that would crop it.
+    <div className="relative overflow-hidden py-4">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-deep-space to-transparent"

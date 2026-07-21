@@ -35,7 +35,12 @@ function TrackCard({ track, isActive, prefersReducedMotion, onActivate, onDeacti
       transition={{ duration: 0.25, ease: 'easeOut' }}
       className={cn(
         'relative w-64 shrink-0 rounded-2xl border bg-silicon-blue/80 p-6 backdrop-blur-md',
-        isActive ? 'border-electric-wheat shadow-glow-wheat' : 'border-white/15'
+        // The 1.03 scale-up makes an active card's edge poke into its
+        // neighbor's space — without a higher stacking order it paints
+        // *underneath* that neighbor (later siblings paint on top by
+        // default), so the glow border reads as cropped right where the
+        // next card overlaps it.
+        isActive ? 'z-10 border-electric-wheat shadow-glow-wheat' : 'border-white/15'
       )}
     >
       <FallingCodeAccent visible={isActive} />

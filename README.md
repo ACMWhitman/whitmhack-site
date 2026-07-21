@@ -12,6 +12,24 @@ footer.
 > and marked with `TBD` comments and will be updated soon. See
 > [Filling in real content](#filling-in-real-content) below.
 
+## Screenshots
+
+| Hero | About |
+| --- | --- |
+| ![Hero section](docs/screenshots/hero.png) | ![About section](docs/screenshots/about.png) |
+
+| Tracks & prizes | Schedule |
+| --- | --- |
+| ![Tracks and prizes section](docs/screenshots/tracks.png) | ![Schedule section](docs/screenshots/schedule.png) |
+
+| FAQ | Organizers & team |
+| --- | --- |
+| ![FAQ section](docs/screenshots/faq.png) | ![Organizers and team section](docs/screenshots/organizers.png) |
+
+| Footer / registration |
+| --- |
+| ![Footer and registration section](docs/screenshots/footer.png) |
+
 ## Tech stack
 
 - **React 19** via **Vite**

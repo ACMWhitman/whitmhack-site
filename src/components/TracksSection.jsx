@@ -1,8 +1,9 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { cn } from '../lib/cn'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { GlitchText } from './GlitchText'
+import { Marquee } from './Marquee'
 import { useSound } from '../context/SoundContext'
 import { useContent } from '../context/ContentContext'
 
@@ -12,25 +13,28 @@ import { useContent } from '../context/ContentContext'
  * slight scale-up. The 3D cursor-tilt effect used to live here — it now
  * lives on the About section's bento cards instead (see
  * AboutSection.jsx), so this card keeps a simpler, flat hover state.
+ *
+ * `isDuplicate` cards are the Marquee's aria-hidden clone, rendered purely
+ * so the loop has something to scroll into view — they're never
+ * focusable and never wired to the active/glow state, so hovering the
+ * clone as it drifts by never fights with the real card's own state.
  */
-function TrackCard({ track, index, isActive, prefersReducedMotion, registerRef, onActivate, onDeactivate, onKeyDown }) {
+function TrackCard({ track, isActive, prefersReducedMotion, onActivate, onDeactivate, isDuplicate }) {
   return (
     <motion.li
-      ref={registerRef}
-      tabIndex={0}
+      tabIndex={isDuplicate ? -1 : 0}
       role="listitem"
-      data-testid={`track-card-${track.id}`}
-      data-active={isActive}
-      aria-label={`${track.name}, prize: ${track.prize}`}
-      onKeyDown={(event) => onKeyDown(event, index)}
-      onMouseEnter={onActivate}
-      onMouseLeave={onDeactivate}
-      onFocus={onActivate}
-      onBlur={onDeactivate}
+      data-testid={isDuplicate ? undefined : `track-card-${track.id}`}
+      data-active={isDuplicate ? undefined : isActive}
+      aria-label={isDuplicate ? undefined : `${track.name}, prize: ${track.prize}`}
+      onMouseEnter={isDuplicate ? undefined : onActivate}
+      onMouseLeave={isDuplicate ? undefined : onDeactivate}
+      onFocus={isDuplicate ? undefined : onActivate}
+      onBlur={isDuplicate ? undefined : onDeactivate}
       animate={{ scale: isActive && !prefersReducedMotion ? 1.03 : 1 }}
       transition={{ duration: 0.25, ease: 'easeOut' }}
       className={cn(
-        'relative w-64 shrink-0 snap-center rounded-2xl border bg-silicon-blue/80 p-6 backdrop-blur-md',
+        'relative w-64 shrink-0 rounded-2xl border bg-silicon-blue/80 p-6 backdrop-blur-md',
         isActive ? 'border-electric-wheat shadow-glow-wheat' : 'border-white/15'
       )}
     >
@@ -58,41 +62,20 @@ function TrackCard({ track, index, isActive, prefersReducedMotion, registerRef, 
 }
 
 /**
- * Horizontally-scrolling, keyboard-navigable carousel of track cards.
- * Arrow Left/Right move focus between cards and scroll the focused card
- * into view — the carousel doesn't rely on a mouse to be usable.
+ * A continuously auto-scrolling, seamlessly looping row of track cards
+ * (see Marquee.jsx) — cards drift right-to-left forever and pause the
+ * instant the cursor or keyboard focus lands on one, so the existing
+ * hover glow/glitch/falling-code effects stay just as readable as before.
  */
 export function TracksSection() {
   const tracksSection = useContent('tracksSection')
-  const cardRefs = useRef([])
   const prefersReducedMotion = usePrefersReducedMotion()
   const { playGlitch } = useSound()
   // Tracked explicitly (rather than relying on CSS-only :hover/group-hover)
   // so both the visual glow/accent *and* our tests can key off one source
   // of truth, and so keyboard focus produces the same effect as a mouse
   // hover would.
-  const [activeIndex, setActiveIndex] = useState(null)
-
-  const focusCard = (index) => {
-    const card = cardRefs.current[index]
-    if (!card) return
-    card.focus()
-    card.scrollIntoView({
-      behavior: prefersReducedMotion ? 'auto' : 'smooth',
-      inline: 'center',
-      block: 'nearest',
-    })
-  }
-
-  const handleKeyDown = (event, index) => {
-    if (event.key === 'ArrowRight') {
-      event.preventDefault()
-      focusCard(Math.min(index + 1, tracksSection.tracks.length - 1))
-    } else if (event.key === 'ArrowLeft') {
-      event.preventDefault()
-      focusCard(Math.max(index - 1, 0))
-    }
-  }
+  const [activeId, setActiveId] = useState(null)
 
   return (
     <section
@@ -107,30 +90,27 @@ export function TracksSection() {
         {tracksSection.title}
       </h2>
 
-      <ul
-        role="list"
-        aria-label="Track categories"
-        className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto px-12 pt-6 pb-14"
-      >
-        {tracksSection.tracks.map((track, index) => (
-          <TrackCard
-            key={track.id}
-            track={track}
-            index={index}
-            isActive={activeIndex === index}
-            prefersReducedMotion={prefersReducedMotion}
-            registerRef={(node) => {
-              cardRefs.current[index] = node
-            }}
-            onActivate={() => {
-              setActiveIndex(index)
-              playGlitch()
-            }}
-            onDeactivate={() => setActiveIndex((current) => (current === index ? null : current))}
-            onKeyDown={handleKeyDown}
-          />
-        ))}
-      </ul>
+      <div className="mt-12 py-6">
+        <Marquee
+          items={tracksSection.tracks}
+          ariaLabel="Track categories"
+          listTestId="tracks-list"
+          renderItem={(track, index, isDuplicate) => (
+            <TrackCard
+              key={isDuplicate ? `${track.id}-duplicate` : track.id}
+              track={track}
+              isActive={!isDuplicate && activeId === track.id}
+              prefersReducedMotion={prefersReducedMotion}
+              isDuplicate={isDuplicate}
+              onActivate={() => {
+                setActiveId(track.id)
+                playGlitch()
+              }}
+              onDeactivate={() => setActiveId((current) => (current === track.id ? null : current))}
+            />
+          )}
+        />
+      </div>
     </section>
   )
 }

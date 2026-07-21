@@ -9,6 +9,12 @@ import { test, expect } from '@playwright/test'
  * (e.g. one section's animation stealing focus/scroll from another).
  */
 test('a visitor can land, explore every section, and reach registration', async ({ page }) => {
+  // Tracks/Organizers now auto-scroll continuously, which fights
+  // Playwright's "wait for the element to stop moving" actionability check
+  // on scrollIntoView — this test cares about cross-section integration,
+  // not animation itself (each section has its own focused spec for that),
+  // so reduced motion keeps it deterministic.
+  await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
 
   // 1. Hero: title, countdown, and CTA are visible immediately.
@@ -21,11 +27,13 @@ test('a visitor can land, explore every section, and reach registration', async 
   await expect(about).toHaveAttribute('data-in-view', 'true')
   await expect(page.getByRole('heading', { name: /built to bridge campus and industry/i })).toBeVisible()
 
-  // 3. Tracks: keyboard through a couple of cards.
+  // 3. Tracks: the auto-scrolling marquee pauses and activates a card on
+  // focus, then Tab moves to the next real (non-duplicate) card.
   const firstTrack = page.getByTestId('track-card-company-challenges')
   await firstTrack.scrollIntoViewIfNeeded()
   await firstTrack.focus()
-  await page.keyboard.press('ArrowRight')
+  await expect(firstTrack).toHaveAttribute('data-active', 'true')
+  await page.keyboard.press('Tab')
   await expect(page.getByTestId('track-card-visionary-award')).toBeFocused()
 
   // 4. Schedule: scroll an event into view, unlock it, open its details.

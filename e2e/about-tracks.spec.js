@@ -8,7 +8,12 @@ test.describe('About and Tracks sections', () => {
     await expect(about).toHaveAttribute('data-in-view', 'true')
   })
 
-  test('tracks carousel supports arrow-key navigation', async ({ page }) => {
+  test('tracks marquee activates a card on focus and only the real copy is tab-reachable', async ({ page }) => {
+    // The marquee drifts continuously, which fights Playwright's "wait for
+    // the element to stop moving" actionability check on scrollIntoView —
+    // reduced motion renders the static fallback list instead, same trick
+    // hero.spec.js already uses for its own scroll-stability needs.
+    await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto('/')
     await page.getByRole('heading', { name: 'Challenges & Awards' }).scrollIntoViewIfNeeded()
 
@@ -18,7 +23,7 @@ test.describe('About and Tracks sections', () => {
     await firstCard.focus()
     await expect(firstCard).toHaveAttribute('data-active', 'true')
 
-    await page.keyboard.press('ArrowRight')
+    await page.keyboard.press('Tab')
     await expect(secondCard).toBeFocused()
     await expect(secondCard).toHaveAttribute('data-active', 'true')
     await expect(firstCard).toHaveAttribute('data-active', 'false')

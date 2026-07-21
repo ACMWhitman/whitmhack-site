@@ -1,5 +1,11 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent, within } from '@testing-library/react'
+
+const mockUsePrefersReducedMotion = vi.fn()
+vi.mock('../hooks/usePrefersReducedMotion', () => ({
+  usePrefersReducedMotion: () => mockUsePrefersReducedMotion(),
+}))
+
 import { TracksSection } from './TracksSection'
 import { tracksSection } from '../data/siteContent'
 import { SoundProvider } from '../context/SoundContext'
@@ -13,23 +19,45 @@ function renderTracksSection() {
 }
 
 describe('TracksSection', () => {
-  beforeEach(() => {
-    // jsdom doesn't implement scrollIntoView; the component calls it when
-    // keyboard navigation moves focus between cards.
-    Element.prototype.scrollIntoView = vi.fn()
-  })
-
   it('renders every track from the data array, not hardcoded per-card', () => {
+    mockUsePrefersReducedMotion.mockReturnValue(false)
     renderTracksSection()
+    const list = within(screen.getByTestId('tracks-list'))
 
     for (const track of tracksSection.tracks) {
       const card = within(screen.getByTestId(`track-card-${track.id}`))
       expect(card.getByText(track.name)).toBeInTheDocument()
       expect(card.getByText(track.prize)).toBeInTheDocument()
     }
+    expect(list.getAllByRole('listitem')).toHaveLength(tracksSection.tracks.length)
+  })
+
+  it('renders a second, aria-hidden copy of every card so the marquee loops seamlessly', () => {
+    mockUsePrefersReducedMotion.mockReturnValue(false)
+    renderTracksSection()
+    // getByText isn't accessibility-tree-aware, so it sees both the real
+    // and the duplicate copy — exactly two matches confirms the loop
+    // content is there without leaking a third, stray render.
+    for (const track of tracksSection.tracks) {
+      expect(screen.getAllByText(track.name)).toHaveLength(2)
+    }
+  })
+
+  it('keeps the duplicate copy out of the accessibility tree and tab order', () => {
+    mockUsePrefersReducedMotion.mockReturnValue(false)
+    renderTracksSection()
+    // role="list" queries are accessibility-tree-aware, so only the real,
+    // non-hidden list should be reachable this way.
+    expect(screen.getAllByRole('list', { name: 'Track categories' })).toHaveLength(1)
+
+    const firstTrack = tracksSection.tracks[0]
+    const [realCard, duplicateCard] = screen.getAllByText(firstTrack.name).map((el) => el.closest('li'))
+    expect(realCard).toHaveAttribute('tabIndex', '0')
+    expect(duplicateCard).toHaveAttribute('tabIndex', '-1')
   })
 
   it('marks a card active on hover and reveals its falling-code accent', () => {
+    mockUsePrefersReducedMotion.mockReturnValue(false)
     renderTracksSection()
     const firstTrack = tracksSection.tracks[0]
     const card = screen.getByTestId(`track-card-${firstTrack.id}`)
@@ -44,11 +72,12 @@ describe('TracksSection', () => {
   })
 
   it('glitches the card name and description while active', () => {
+    mockUsePrefersReducedMotion.mockReturnValue(false)
     renderTracksSection()
     const firstTrack = tracksSection.tracks[0]
     const card = screen.getByTestId(`track-card-${firstTrack.id}`)
-    const name = screen.getByText(firstTrack.name)
-    const description = screen.getByText(firstTrack.description)
+    const name = within(card).getByText(firstTrack.name)
+    const description = within(card).getByText(firstTrack.description)
 
     fireEvent.mouseEnter(card)
     expect(name).toHaveClass('is-glitching')
@@ -59,34 +88,8 @@ describe('TracksSection', () => {
     expect(description).not.toHaveClass('is-glitching')
   })
 
-  it('moves focus to the next card on ArrowRight and scrolls it into view', () => {
-    renderTracksSection()
-    const [first, second] = tracksSection.tracks
-    const firstCard = screen.getByTestId(`track-card-${first.id}`)
-    const secondCard = screen.getByTestId(`track-card-${second.id}`)
-
-    firstCard.focus()
-    fireEvent.keyDown(firstCard, { key: 'ArrowRight' })
-
-    expect(secondCard).toHaveFocus()
-    expect(secondCard.scrollIntoView).toHaveBeenCalled()
-  })
-
-  it('moves focus to the previous card on ArrowLeft and stops at the first card', () => {
-    renderTracksSection()
-    const [first, second] = tracksSection.tracks
-    const firstCard = screen.getByTestId(`track-card-${first.id}`)
-    const secondCard = screen.getByTestId(`track-card-${second.id}`)
-
-    secondCard.focus()
-    fireEvent.keyDown(secondCard, { key: 'ArrowLeft' })
-    expect(firstCard).toHaveFocus()
-
-    fireEvent.keyDown(firstCard, { key: 'ArrowLeft' })
-    expect(firstCard).toHaveFocus()
-  })
-
   it('activates a card on keyboard focus, matching the mouse-hover effect', () => {
+    mockUsePrefersReducedMotion.mockReturnValue(false)
     renderTracksSection()
     const track = tracksSection.tracks[0]
     const card = screen.getByTestId(`track-card-${track.id}`)
@@ -96,5 +99,14 @@ describe('TracksSection', () => {
 
     fireEvent.blur(card)
     expect(card).toHaveAttribute('data-active', 'false')
+  })
+
+  it('falls back to a single, non-looping list under prefers-reduced-motion', () => {
+    mockUsePrefersReducedMotion.mockReturnValue(true)
+    renderTracksSection()
+
+    for (const track of tracksSection.tracks) {
+      expect(screen.getAllByText(track.name)).toHaveLength(1)
+    }
   })
 })

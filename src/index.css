@@ -228,3 +228,26 @@ h4 {
 .admin-editable-outline:hover {
   border-bottom-color: theme('colors.laser-teal');
 }
+
+/* Seamless auto-scrolling row (Marquee.jsx) — the track holds two identical
+   copies of the content back to back, so animating exactly -50% always
+   lands back on the real copy's start, however many items it holds.
+   Pausing on hover/focus keeps an individual item's own hover/focus effects
+   legible instead of sliding out from under the cursor; the global
+   prefers-reduced-motion rule above already freezes this if it ever
+   renders (Marquee itself also skips the animated markup entirely in that
+   case, so this is a belt-and-suspenders fallback, not the primary guard). */
+.marquee-track {
+  animation: marquee-scroll var(--marquee-duration, 30s) linear infinite;
+}
+
+.marquee-track:hover,
+.marquee-track:focus-within {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}

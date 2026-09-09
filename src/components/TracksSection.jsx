@@ -68,7 +68,7 @@ export function TracksSection() {
       <ul
         aria-label="Awards and prizes"
         data-testid="tracks-list"
-        className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-4 sm:auto-rows-[180px]"
+        className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-4 sm:auto-rows-[180px]"
       >
         {tracksSection.tracks.map((track) => (
           <AwardCard key={track.id} track={track} />

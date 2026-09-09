@@ -42,7 +42,7 @@ function TimelineEvent({ event, alignRight }) {
         <p
           className={cn(
             'font-subhead text-xs uppercase tracking-widest transition-colors duration-500',
-            isActive ? 'text-electric-wheat' : 'text-white/40'
+            isActive ? 'text-electric-wheat' : 'text-white/60'
           )}
         >
           {event.time}
@@ -61,7 +61,7 @@ function TimelineEvent({ event, alignRight }) {
           }}
           className={cn(
             'mt-2 font-heading text-lg font-bold transition-colors duration-500 disabled:cursor-not-allowed md:text-xl',
-            isActive ? 'text-white' : 'text-white/45'
+            isActive ? 'text-white' : 'text-white/60'
           )}
         >
           {event.title}

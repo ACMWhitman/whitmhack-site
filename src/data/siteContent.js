@@ -152,7 +152,7 @@ export const organizersSection = {
     { id: 'nick-twum', name: 'Nick Twum', role: 'ACM Vice-President' },
     { id: 'tabish-navaid', name: 'Tabish Navaid', role: 'ACM Treasurer' },
     { id: 'patrick-mulikuza', name: 'Patrick Mulikuza', role: 'Website Designer, Board Member' },
-    { id: 'ali-abaka', name: 'Ali Abaka', role: 'Budgeting & Expenses Lead' },
+    { id: 'ali-abaka', name: 'Ali Papi Abbaka', role: 'Budgeting & Expenses Lead' },
   ],
 }
 

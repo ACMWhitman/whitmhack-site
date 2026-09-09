@@ -93,8 +93,8 @@ export function Hero() {
           ref={headlineRef}
           className="whitespace-nowrap font-heading text-electric-wheat text-5xl font-extrabold uppercase tracking-wide sm:text-7xl"
         >
-          <span className="hero-vf text-6xl sm:text-8xl">{hero.title.split(' ')[0]}</span>{' '}
-          <span className="hero-vf text-6xl sm:text-8xl">{hero.title.split(' ')[1]}</span>
+          <span className="hero-vf text-4xl sm:text-6xl md:text-8xl">{hero.title.split(' ')[0]}</span>{' '}
+          <span className="hero-vf text-4xl sm:text-6xl md:text-8xl">{hero.title.split(' ')[1]}</span>
         </h1>
 
         <p className="max-w-xl text-balance font-body text-base text-white sm:text-lg">

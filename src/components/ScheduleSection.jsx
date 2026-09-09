@@ -117,12 +117,14 @@ export function ScheduleSection() {
 
       <div ref={timelineRef} className="relative mt-12">
         {/* Central spine — a glowing yellow line that draws downward as
-            the timeline scrolls through the viewport. */}
+            the timeline scrolls through the viewport. Hidden on phones,
+            where events stack full-width and the line would cross the
+            text. */}
         <motion.span
           aria-hidden="true"
           data-testid="schedule-progress-line"
           style={{ height: spineHeight }}
-          className="absolute left-1/2 top-0 w-px -translate-x-1/2 bg-electric-wheat shadow-[0_0_12px_rgba(255,198,39,0.45)]"
+          className="absolute left-1/2 top-0 hidden w-px -translate-x-1/2 bg-electric-wheat shadow-[0_0_12px_rgba(255,198,39,0.45)] md:block"
         />
 
         <ol className="list-none">

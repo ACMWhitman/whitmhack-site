@@ -144,7 +144,7 @@ h4 {
 
 .glitch-text.is-glitching::after {
   opacity: 0.85;
-  color: theme('colors.electric-wheat');
+  color: theme('colors.deep-space');
   clip-path: polygon(0 62%, 100% 62%, 100% 78%, 0 78%);
   animation: glitch-slice-b 0.4s steps(2, jump-end) 1 forwards;
 }

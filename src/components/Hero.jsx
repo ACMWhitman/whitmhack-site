@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { CountdownClock } from './CountdownClock'
 import { MatrixRain } from './MatrixRain'
 import { GlitchText } from './GlitchText'
-import { EdgeLightFrame } from './EdgeLightFrame'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { useSound } from '../context/SoundContext'
 import { useContent } from '../context/ContentContext'
@@ -109,7 +108,7 @@ export function Hero() {
 
         <CountdownClock targetDate={hero.targetDate} />
 
-        <EdgeLightFrame className="animate-pulse-scale mt-4 rounded-xl">
+        <div className="animate-pulse-scale mt-4 rounded-xl">
           <a
             href={hero.ctaHref}
             onClick={playClick}
@@ -117,15 +116,15 @@ export function Hero() {
             onMouseLeave={() => setIsCtaGlitching(false)}
             onFocus={startGlitch}
             onBlur={() => setIsCtaGlitching(false)}
-            className="glass-core relative flex items-center justify-center rounded-xl px-12 py-4 font-subhead text-base font-bold uppercase tracking-widest backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.4)] transition-[transform,box-shadow] duration-150 hover:scale-105 focus-visible:scale-105 active:scale-100 active:translate-y-[2px] active:shadow-[0_3px_10px_rgba(0,0,0,0.35)]"
+            className="relative flex items-center justify-center rounded-xl bg-electric-wheat px-12 py-4 font-subhead text-base font-bold uppercase tracking-widest text-deep-space shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-[transform,box-shadow] duration-150 hover:scale-105 focus-visible:scale-105 active:scale-100 active:translate-y-[2px] active:shadow-[0_3px_10px_rgba(0,0,0,0.3)]"
           >
             <GlitchText
               text={hero.ctaLabel}
               active={isCtaGlitching}
-              className="text-electric-wheat"
+              className="text-deep-space"
             />
           </a>
-        </EdgeLightFrame>
+        </div>
       </motion.div>
     </section>
   )

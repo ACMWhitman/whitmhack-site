@@ -59,20 +59,13 @@ describe('Hero', () => {
     expect(label).not.toHaveClass('is-glitching')
   })
 
-  it('gives the register CTA the glass core and flat gold label text', () => {
+  it('renders the register CTA as a solid Whitman yellow button with navy text', () => {
     renderHero()
     const cta = screen.getByRole('link', { name: hero.ctaLabel })
     const label = screen.getByText(hero.ctaLabel)
 
-    expect(cta).toHaveClass('glass-core')
-    expect(label).toHaveClass('text-electric-wheat')
-  })
-
-  it('wraps the register CTA in a gold frame', () => {
-    renderHero()
-    const cta = screen.getByRole('link', { name: hero.ctaLabel })
-    // EdgeLightFrame's decorative gold layer is a sibling of the real
-    // link, inside the same wrapper.
-    expect(cta.parentElement.querySelector('[aria-hidden="true"]')).not.toBeNull()
+    expect(cta).toHaveClass('bg-electric-wheat')
+    expect(label).toHaveClass('text-deep-space')
+    expect(cta).not.toHaveClass('glass-core')
   })
 })

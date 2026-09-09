@@ -10,119 +10,57 @@
  * confirm with Kim/Stratton/Pitigala before launch.
  */
 
-// The section ids here must match the `id` attribute each section
-// component renders (Hero -> #hero, AboutSection -> #about, and so on),
-// since SpineNav both scrollspies and links against these exact ids.
-export const spineNav = [
-  { id: 'hero', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'tracks', label: 'Tracks' },
-  { id: 'schedule', label: 'Schedule' },
-  { id: 'faq', label: 'FAQ' },
-  { id: 'organizers', label: 'Team' },
-  { id: 'register', label: 'Register' },
-]
-
 export const hero = {
-  eyebrow: 'Whitman College · CCSC Northwestern Regional Conference · October 9–10, 2026',
-  title: 'WhitmHack 2026',
+  // The conference/venue line stays as a small eyebrow above the logo; the
+  // dates live in their own section under the description, above the
+  // countdown (eyes read down from the logo, so the date sits lower).
+  context: 'Whitman College · CCSC Northwestern Regional Conference',
+  date: 'October 9–10, 2026',
+  title: 'WhitHack 2026',
   subtitle:
     'A 24-hour hackathon bringing together students from across Washington, Oregon, Idaho, and Northern California to tackle real problems proposed by real companies — no theoretical exercises, just build, present, and connect.',
   ctaLabel: 'Register Now',
   // TBD: swap for the real registration form/link (Devpost for Teams,
   // Google Form, etc.) once organizers set one up.
   ctaHref: '#register',
-  taglines: [
-    'Real companies. Real problems. One weekend.',
-    'No CS degree required — bring an idea.',
-    'Build, pitch, and get discovered.',
-    '24 hours. 3–5 person teams. One demo.',
-  ],
   // Kickoff per D-Day Timeline: 2:30 PM PT, October 9, 2026.
   targetDate: '2026-10-09T14:30:00-07:00',
 }
 
-export const about = {
-  eyebrow: 'What is WhitmHack?',
-  title: 'Built to bridge campus and industry.',
-  bento: [
-    {
-      id: 'mission',
-      span: 'lg',
-      heading: 'Our mission',
-      body:
-        'The Pacific Northwest is a growing tech corridor, but structured engagement between companies and student talent is still limited. WhitmHack connects motivated students from across the region with company-proposed challenges — giving companies fresh thinking and giving students a portfolio-ready project and a direct line to industry.',
-    },
-    {
-      id: 'stat-hackers',
-      span: 'sm',
-      heading: '50–60',
-      body: 'Students expected on campus, in teams of 3–5.',
-    },
-    {
-      id: 'stat-hours',
-      span: 'sm',
-      heading: '24 hrs',
-      body: 'Of building, mentorship, and demos.',
-    },
-    {
-      id: 'community',
-      span: 'md',
-      heading: 'All skill levels welcome',
-      body:
-        'WhitmHack is explicitly open to non-CS students. Pre-event learnathons cover tools like Git, APIs, Webflow, and Figma, and roles like researcher, designer, and strategist count just as much as coder.',
-    },
-    {
-      id: 'whitman',
-      span: 'md',
-      heading: 'Hosted at Whitman College',
-      body:
-        'WhitmHack runs as part of the CCSC Northwestern Regional Conference at Whitman College this October, organized by the ACM Whitman Chapter with support from the Career and Community Engagement Center (CCEC).',
-    },
-  ],
-}
-
 export const tracksSection = {
   eyebrow: 'Compete & win',
-  title: 'Challenges & Awards',
-  // Note: unlike a fixed-track hackathon, WhitmHack's problems are proposed
-  // day-of by participating companies (software prototypes, data analysis,
-  // automation, product/UX ideas, cybersecurity, AI-assisted workflows).
-  // Company names, exact challenge prompts, and per-track dollar amounts
-  // are TBD pending sponsor confirmation — prize money instead comes from
-  // a shared pool ($1,800–$2,400 per participating company).
+  title: 'Awards & Prizes',
+  // Four static prizes in an About-style bento grid (spans mirror the
+  // about section's card sizes): big First-Place box, wide Second-Place
+  // tile, then Third Place and the participation-certificate tile.
   tracks: [
     {
-      id: 'company-challenges',
-      name: 'Company Challenge Tracks',
-      description:
-        'Each participating company pitches a real problem they’re facing — teams pick a challenge and build a solution over the hackathon.',
-      prize: 'Funded from a shared company prize pool (TBD per company)',
-      accent: 'cyber-blue',
+      id: 'first-place',
+      name: 'First Place',
+      description: 'The best overall project of the weekend.',
+      prize: '$500',
+      span: 'lg',
     },
     {
-      id: 'visionary-award',
-      name: 'Visionary Award',
-      description:
-        'For the best-researched solution and prototype, even if the code isn’t fully functional — rewards strong thinking over polish.',
-      prize: 'TBD',
-      accent: 'electric-wheat',
+      id: 'second-place',
+      name: 'Second Place',
+      description: 'The runner-up standout build.',
+      prize: '$300',
+      span: 'md',
     },
     {
-      id: 'humanities-integration',
-      name: 'Humanities Integration Award',
-      description:
-        'For the team that best incorporates ethical, historical, or social perspectives into their technical project.',
-      prize: 'TBD',
-      accent: 'laser-teal',
+      id: 'third-place',
+      name: 'Third Place',
+      description: 'The third strongest project overall.',
+      prize: '$100',
+      span: 'sm',
     },
     {
-      id: 'first-timer',
-      name: 'First-Time Hacker',
-      description:
-        'A dedicated category for hackers at their very first event — eligibility rules TBD.',
-      prize: 'TBD',
-      accent: 'cyber-blue',
+      id: 'participation',
+      name: 'Participation',
+      description: 'Every participant earns a certificate of participation.',
+      prize: 'Certificate',
+      span: 'sm',
     },
   ],
 }
@@ -204,48 +142,6 @@ export const scheduleSection = {
   ],
 }
 
-export const faqSection = {
-  eyebrow: 'FAQ',
-  title: 'Frequently Asked Questions',
-  questions: [
-    {
-      id: 'who-can-attend',
-      question: 'Who can attend WhitmHack?',
-      answer:
-        'Students from colleges and universities across Washington, Oregon, Idaho, and Northern California are welcome — WhitmHack is explicitly designed to be open to non-CS students, not just computer science majors.',
-    },
-    {
-      id: 'do-i-need-experience',
-      question: 'Do I need coding experience?',
-      answer:
-        'No. Pre-event learnathons cover tools like Git, APIs, and AI to help beginners feel comfortable, and roles like researcher/subject-matter-expert, designer, and strategist are just as valued as writing code.',
-    },
-    {
-      id: 'team-size',
-      question: 'What is the team size?',
-      answer: 'Teams of 3–5 people.',
-    },
-    {
-      id: 'ai-policy',
-      question: 'Can I use AI tools to build my project?',
-      answer:
-        'Yes — AI is allowed as a tool, but participants must be able to explain every line of code. Projects generated entirely from a prompt aren’t allowed; teams are encouraged to use AI to reach a higher level of complexity, not to do less work.',
-    },
-    {
-      id: 'cost',
-      question: 'How much does it cost?',
-      answer:
-        'Meals, prizes, and supplies are covered by sponsorship and CS Department support, so there’s no cost to participate.',
-    },
-    {
-      id: 'what-to-bring',
-      question: 'What should I bring?',
-      // TBD: not specified in planning docs yet.
-      answer: 'Details TBD — check back closer to the event.',
-    },
-  ],
-}
-
 export const organizersSection = {
   eyebrow: 'The team',
   title: 'Organizers & Team',
@@ -256,7 +152,7 @@ export const organizersSection = {
     { id: 'nick-twum', name: 'Nick Twum', role: 'ACM Vice-President' },
     { id: 'tabish-navaid', name: 'Tabish Navaid', role: 'ACM Treasurer' },
     { id: 'patrick-mulikuza', name: 'Patrick Mulikuza', role: 'Website Designer, Board Member' },
-    { id: 'gauri-vaada', name: 'Gauri Vaada', role: 'Budgeting & Expenses Lead' },
+    { id: 'ali-abaka', name: 'Ali Abaka', role: 'Budgeting & Expenses Lead' },
   ],
 }
 

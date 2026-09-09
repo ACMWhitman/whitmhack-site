@@ -116,7 +116,7 @@ describe('AdminContext', () => {
     await waitFor(() => {
       expect(screen.getByTestId('content')).not.toHaveTextContent('none')
     })
-    expect(screen.getByTestId('content')).toHaveTextContent('WhitmHack')
+    expect(screen.getByTestId('content')).toHaveTextContent('WhitHack')
   })
 
   it('refuses to save when not authenticated', async () => {

@@ -15,11 +15,7 @@ test.describe('Accessibility', () => {
   test('every interactive element on the page is reachable by keyboard alone', async ({ page }) => {
     await page.goto('/')
 
-    const expectedLabels = [
-      'Register Now',
-      'Company Challenge Tracks, prize: Funded from a shared company prize pool (TBD per company)',
-      'First-Time Hacker, prize: TBD',
-    ]
+    const expectedLabels = ['Register Now', 'Instagram', 'GitHub']
 
     const reachableTexts = new Set()
     // Tab through a generous number of times to cover the whole page;
@@ -41,12 +37,12 @@ test.describe('Accessibility', () => {
     }
   })
 
-  test('the magnetic register button in the footer is keyboard-focusable and activatable', async ({
+  test('the register button in the hero is keyboard-focusable and activatable', async ({
     page,
   }) => {
     await page.goto('/')
-    const footerRegister = page.locator('footer').getByRole('link', { name: 'Register' })
-    await footerRegister.focus()
-    await expect(footerRegister).toBeFocused()
+    const register = page.getByRole('link', { name: 'Register Now' })
+    await register.focus()
+    await expect(register).toBeFocused()
   })
 })

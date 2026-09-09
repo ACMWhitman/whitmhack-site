@@ -5,7 +5,7 @@
 :root {
   /* CSS variables that sections update as the user scrolls, so glows/accents
      can shift color between sections without re-rendering React. */
-  --section-accent: theme('colors.cyber-blue');
+  --section-accent: theme('colors.electric-wheat');
 }
 
 * {
@@ -51,41 +51,72 @@ h4 {
   outline-offset: 3px;
 }
 
-/* Animated gradient headline text: the gradient itself is painted as the
-   text's background, clipped to the glyph shapes, then slid horizontally.
-   The global prefers-reduced-motion rule above already forces this
-   animation to complete instantly, so no separate override is needed here. */
-.text-gradient-shift {
-  background-image: linear-gradient(
-    90deg,
-    theme('colors.electric-wheat'),
-    theme('colors.laser-teal'),
-    theme('colors.cyber-blue'),
-    theme('colors.electric-wheat')
-  );
-  background-size: 300% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: gradient-shift 8s linear infinite;
+/* Reverse-proximity hero headline, set in Whitman's official headline
+   face, Lora. Resting state is the fully "bulged" heavy-italic look with
+   a chunky stepped white offset shadow; as the cursor approaches (Hero.jsx
+   drives the per-frame style) the type thins toward wght 400, stands
+   upright, the shadow pulls away, and the text scales down slightly. The
+   transition keeps the pointer-driven changes smooth; reduced-motion users
+   keep the resting bulged state. */
+.hero-vf {
+  font-family: 'Lora', Georgia, serif;
+  font-variation-settings: 'wght' 700, 'ital' 1;
+  color: theme('colors.electric-wheat');
+  text-shadow:
+    2px 2px 0 rgba(255, 255, 255, 0.85),
+    4px 4px 0 rgba(255, 255, 255, 0.55),
+    7px 7px 0 rgba(255, 255, 255, 0.28);
+  transition:
+    font-variation-settings 0.15s ease-out,
+    text-shadow 0.15s ease-out,
+    transform 0.15s ease-out;
 }
 
-@keyframes gradient-shift {
-  to {
-    background-position: 300% center;
+/* Prize amounts on the Whitman award cards — glowing gold. Dollar prizes
+   pulse the glow (`.award-pulse`); the reduced-motion rule freezes it. */
+.award-amount {
+  color: theme('colors.electric-wheat');
+  text-shadow:
+    0 0 12px rgba(255, 198, 39, 0.75),
+    0 0 32px rgba(255, 198, 39, 0.45),
+    0 0 60px rgba(255, 198, 39, 0.25);
+}
+
+.award-pulse {
+  animation: prize-pulse 2s ease-in-out infinite;
+}
+
+@keyframes prize-pulse {
+  0%,
+  100% {
+    text-shadow:
+      0 0 8px rgba(255, 198, 39, 0.45),
+      0 0 20px rgba(255, 198, 39, 0.2);
+  }
+  50% {
+    text-shadow:
+      0 0 14px rgba(255, 198, 39, 0.9),
+      0 0 36px rgba(255, 198, 39, 0.55),
+       0 0 70px rgba(255, 198, 39, 0.3);
   }
 }
 
-/* Blinking typewriter cursor. */
-.typewriter-cursor {
-  display: inline-block;
-  margin-left: 2px;
-  animation: cursor-blink 1s step-end infinite;
+/* Register CTA "breathing" scale pulse — the button gently grows and
+   shrinks (no glow). Applies to the EdgeLightFrame wrapper so it never
+   fights the inner anchor's own hover transform. Reduced-motion users get
+   a static size via the global rule above. */
+.animate-pulse-scale {
+  animation: pulse-scale 2.2s ease-in-out infinite;
+  transform-origin: center;
 }
 
-@keyframes cursor-blink {
+@keyframes pulse-scale {
+  0%,
+  100% {
+    transform: scale(1);
+  }
   50% {
-    opacity: 0;
+    transform: scale(1.06);
   }
 }
 
@@ -106,14 +137,14 @@ h4 {
 
 .glitch-text.is-glitching::before {
   opacity: 0.85;
-  color: theme('colors.cyber-blue');
+  color: theme('colors.walla-mist');
   clip-path: polygon(0 15%, 100% 15%, 100% 32%, 0 32%);
   animation: glitch-slice-a 0.4s steps(2, jump-end) 1 forwards;
 }
 
 .glitch-text.is-glitching::after {
   opacity: 0.85;
-  color: theme('colors.laser-teal');
+  color: theme('colors.electric-wheat');
   clip-path: polygon(0 62%, 100% 62%, 100% 78%, 0 78%);
   animation: glitch-slice-b 0.4s steps(2, jump-end) 1 forwards;
 }
@@ -156,19 +187,15 @@ h4 {
   }
 }
 
-/* Glassmorphism core for the Register buttons and countdown boxes (see
-   .edge-light / animate-border-spin / animate-text-flow for the other two
-   layers of that effect, applied via Tailwind utilities directly in the
-   components). `background-color` here is set with a plain (non-Tailwind)
+/* Glassmorphism core for the Register buttons (the solid gold hairline
+   ring around them comes from EdgeLightFrame.jsx; the countdown cells use
+   the plain navy `bg-silicon-blue` fill instead of this translucent
+   glass). `background-color` here is set with a plain (non-Tailwind)
    custom property so the @supports fallback below can bump it to a fully
    opaque color for browsers with no backdrop-filter support, without
    fighting a Tailwind-generated utility of the same property. */
 .glass-core {
-  background-color: rgba(1, 12, 36, 0.75);
-}
-
-.glass-core-light {
-  background-color: rgba(239, 242, 249, 0.1);
+  background-color: rgba(1, 14, 48, 0.75);
 }
 
 @supports not (backdrop-filter: blur(1px)) {
@@ -176,29 +203,8 @@ h4 {
      near-opaque background instead, so text sitting on top stays fully
      readable rather than relying on a blur effect that isn't happening. */
   .glass-core {
-    background-color: rgba(1, 12, 36, 0.96);
+    background-color: rgba(1, 14, 48, 0.96);
   }
-
-  .glass-core-light {
-    background-color: rgba(10, 25, 63, 0.92);
-  }
-}
-
-/* Flowing gradient text: same background-clip trick as .text-gradient-shift,
-   just with its own (faster, two-tone) animation so it reads as a distinct
-   "premium" flourish reserved for the Register buttons and countdown
-   digits, rather than reusing the section-heading treatment everywhere. */
-.text-flow-wheat {
-  background-image: linear-gradient(
-    90deg,
-    theme('colors.electric-wheat'),
-    theme('colors.laser-teal'),
-    theme('colors.electric-wheat')
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 
 /* Admin inline-editing styles — only visible when logged in, matching the
@@ -216,8 +222,8 @@ h4 {
 
 .admin-inline-input:focus {
   border-style: solid;
-  border-color: theme('colors.laser-teal');
-  background: rgba(44, 141, 150, 0.1);
+  border-color: theme('colors.electric-wheat');
+  background: rgba(255, 198, 39, 0.12);
 }
 
 .admin-editable-outline {
@@ -227,27 +233,4 @@ h4 {
 
 .admin-editable-outline:hover {
   border-bottom-color: theme('colors.laser-teal');
-}
-
-/* Seamless auto-scrolling row (Marquee.jsx) — the track holds two identical
-   copies of the content back to back, so animating exactly -50% always
-   lands back on the real copy's start, however many items it holds.
-   Pausing on hover/focus keeps an individual item's own hover/focus effects
-   legible instead of sliding out from under the cursor; the global
-   prefers-reduced-motion rule above already freezes this if it ever
-   renders (Marquee itself also skips the animated markup entirely in that
-   case, so this is a belt-and-suspenders fallback, not the primary guard). */
-.marquee-track {
-  animation: marquee-scroll var(--marquee-duration, 30s) linear infinite;
-}
-
-.marquee-track:hover,
-.marquee-track:focus-within {
-  animation-play-state: paused;
-}
-
-@keyframes marquee-scroll {
-  to {
-    transform: translateX(-50%);
-  }
 }

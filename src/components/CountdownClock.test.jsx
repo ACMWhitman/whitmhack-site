@@ -44,14 +44,13 @@ describe('CountdownClock', () => {
     )
   })
 
-  it('wraps every unit box in a spinning edge-light frame with a glass core', () => {
+  it('wraps every unit box in a gold frame with a Whitman Blue core and white digits', () => {
     render(<CountdownClock targetDate="2026-01-03T02:03:04Z" />)
     for (const key of ['days', 'hours', 'minutes', 'seconds']) {
       const digit = screen.getByTestId(`countdown-${key}`)
-      expect(digit.closest('.glass-core-light')).not.toBeNull()
+      expect(digit.closest('.bg-silicon-blue')).not.toBeNull()
       expect(digit.closest('.group')).not.toBeNull()
-      expect(digit).toHaveClass('text-flow-wheat')
-      expect(digit).toHaveClass('animate-text-flow')
+      expect(digit).toHaveClass('text-white')
     }
   })
 })

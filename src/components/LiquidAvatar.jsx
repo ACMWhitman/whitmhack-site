@@ -7,12 +7,19 @@ import { useSound } from '../context/SoundContext'
 
 const AVATAR_SIZE = 160
 
-const ACCENT_PAIRS = [
-  ['#E2A936', '#2C4C96'],
-  ['#2C8D96', '#2C4C96'],
-  ['#E2A936', '#2C8D96'],
-  ['#2C4C96', '#E2A936'],
-]
+// Flat brand placeholder backgrounds for the team "photos" — alternating
+// Whitman Yellow and white circles (the only non-navy hues in the
+// three-color system). Initials always render in navy on both so they stay
+// legible.
+const ACCENT_COLORS = ['#FFC627', '#FFFFFF', '#FFC627', '#FFFFFF']
+
+function accentColor(accentIndex) {
+  return ACCENT_COLORS[accentIndex % ACCENT_COLORS.length]
+}
+
+function initialsFill() {
+  return '#010E30'
+}
 
 const VERTEX_SOURCE = `
   attribute vec2 a_position;
@@ -55,17 +62,12 @@ function createPlaceholderTexture(name, accentIndex) {
   canvas.height = AVATAR_SIZE
   const ctx = canvas.getContext('2d')
 
-  const [from, to] = ACCENT_PAIRS[accentIndex % ACCENT_PAIRS.length]
-  const gradient = ctx.createLinearGradient(0, 0, AVATAR_SIZE, AVATAR_SIZE)
-  gradient.addColorStop(0, from)
-  gradient.addColorStop(1, to)
-  ctx.fillStyle = gradient
-  ctx.fillRect(0, 0, AVATAR_SIZE, AVATAR_SIZE)
-  ctx.fillStyle = 'rgba(1, 12, 36, 0.35)'
+  const accent = accentColor(accentIndex)
+  ctx.fillStyle = accent
   ctx.fillRect(0, 0, AVATAR_SIZE, AVATAR_SIZE)
 
-  ctx.fillStyle = '#EFF2F9'
-  ctx.font = `700 ${AVATAR_SIZE * 0.3}px "Plus Jakarta Sans", system-ui, sans-serif`
+  ctx.fillStyle = initialsFill()
+  ctx.font = `700 ${AVATAR_SIZE * 0.3}px "Lora", Georgia, serif`
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
   ctx.fillText(getInitials(name), AVATAR_SIZE / 2, AVATAR_SIZE / 2)
@@ -74,14 +76,14 @@ function createPlaceholderTexture(name, accentIndex) {
 }
 
 function StaticAvatar({ name, accentIndex }) {
-  const [from, to] = ACCENT_PAIRS[accentIndex % ACCENT_PAIRS.length]
+  const accent = accentColor(accentIndex)
   return (
     <div
       role="img"
       aria-label={`Photo of ${name}`}
       data-testid="liquid-avatar-static"
-      className="flex h-40 w-40 items-center justify-center rounded-full font-heading text-3xl font-bold text-walla-mist"
-      style={{ background: `linear-gradient(135deg, ${from}, ${to})` }}
+      className="flex h-40 w-40 items-center justify-center rounded-full font-heading text-3xl font-bold text-deep-space"
+      style={{ backgroundColor: accent }}
     >
       {getInitials(name)}
     </div>
@@ -89,8 +91,8 @@ function StaticAvatar({ name, accentIndex }) {
 }
 
 /**
- * A team-member "photo" (a procedurally generated placeholder — gradient
- * + initials — until real headshots exist) that ripples like liquid
+ * A team-member "photo" (a procedurally generated placeholder — flat brand
+ * color + initials — until real headshots exist) that ripples like liquid
  * around the cursor on hover, built with a hand-written WebGL shader
  * instead of a 3D library. There's no actual 3D scene here, just a
  * full-quad fragment shader distorting a texture, so it doesn't need

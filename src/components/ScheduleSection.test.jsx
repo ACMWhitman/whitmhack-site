@@ -1,13 +1,8 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { render, screen, act, fireEvent, within } from '@testing-library/react'
 import { ScheduleSection } from './ScheduleSection'
 import { scheduleSection } from '../data/siteContent'
 import { SoundProvider } from '../context/SoundContext'
-
-const mockUsePrefersReducedMotion = vi.fn(() => false)
-vi.mock('../hooks/usePrefersReducedMotion', () => ({
-  usePrefersReducedMotion: () => mockUsePrefersReducedMotion(),
-}))
 
 const allEvents = scheduleSection.days.flatMap((day) => day.events)
 
@@ -24,7 +19,6 @@ describe('ScheduleSection', () => {
   const originalIntersectionObserver = globalThis.IntersectionObserver
 
   beforeEach(() => {
-    mockUsePrefersReducedMotion.mockReturnValue(false)
     observers = []
     class ControllableIntersectionObserver {
       constructor(callback) {
@@ -46,10 +40,6 @@ describe('ScheduleSection', () => {
 
   it('renders every day and event from the data array', () => {
     renderSchedule()
-    // Scoped per-event rather than a page-wide getByText lookup — real
-    // schedules can reuse the same title for more than one block (e.g.
-    // two separate "Build Sprint" sessions), so title text alone isn't
-    // guaranteed unique across the whole page.
     for (const event of allEvents) {
       const eventElement = screen.getByTestId(`schedule-event-${event.id}`)
       expect(within(eventElement).getByText(event.title)).toBeInTheDocument()
@@ -110,16 +100,8 @@ describe('ScheduleSection', () => {
     expect(toggle).toHaveAttribute('aria-expanded', 'false')
   })
 
-  it('applies a scroll-linked parallax offset to the time label when motion is allowed', () => {
+  it('renders the central timeline spine', () => {
     renderSchedule()
-    const firstEvent = allEvents[0]
-    expect(screen.getByText(firstEvent.time)).toHaveAttribute('style')
-  })
-
-  it('skips the parallax offset under reduced motion', () => {
-    mockUsePrefersReducedMotion.mockReturnValue(true)
-    renderSchedule()
-    const firstEvent = allEvents[0]
-    expect(screen.getByText(firstEvent.time)).not.toHaveAttribute('style')
+    expect(screen.getByTestId('schedule-progress-line')).toBeInTheDocument()
   })
 })

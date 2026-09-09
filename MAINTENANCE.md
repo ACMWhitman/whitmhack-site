@@ -141,8 +141,8 @@ ends up being expected).
 
 The five names and roles here are the real current team. The photo next
 to each name isn't a real photo yet though — it's a generated circle
-with the person's initials and a gradient color, built automatically
-from whatever `name` you put in. Getting real photos wired in is a code
+with the person's initials on a flat brand color (alternating Whitman
+Yellow and white), built automatically from whatever `name` you put in. Getting real photos wired in is a code
 change, not just a content edit, so flag that to whoever's maintaining
 the code once real headshots are ready. Adding or removing a team
 member is a content-only change (edit the array, same as any other list

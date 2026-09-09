@@ -1,34 +1,29 @@
 # WhitmHack Website
 
-The official website for **WhitmHack**, Whitman College's student
+The official website for **WhitHack**, Whitman College's student
 hackathon. I implemented a hero with a live countdown and a Matrix-style digital rain
-background, an about section, tracks & prizes, a scroll-driven schedule,
-a terminal-style FAQ, an organizers/team section, and a registration
-footer.
+background, an awards & prizes section, a scroll-driven schedule,
+an organizers/team section, and a site footer.
 
 > **Content status:** most section copy is the real thing, sourced from
 > the ACM Whitman Hackathon planning docs. A handful of specifics
-> (per-track prize amounts, one FAQ answer) are still undecided
+> (registration details) are still undecided
 > and marked with `TBD` comments and will be updated soon. See
 > [Filling in real content](#filling-in-real-content) below.
 
 ## Screenshots
 
-| Hero | About |
+| Hero | Awards & Prizes |
 | --- | --- |
-| ![Hero section](docs/screenshots/hero.png) | ![About section](docs/screenshots/about.png) |
+| ![Hero section](docs/screenshots/hero.png) | ![Awards section](docs/screenshots/tracks.png) |
 
-| Tracks & prizes | Schedule |
+| Schedule | Organizers & team |
 | --- | --- |
-| ![Tracks and prizes section](docs/screenshots/tracks.png) | ![Schedule section](docs/screenshots/schedule.png) |
+| ![Schedule section](docs/screenshots/schedule.png) | ![Organizers and team section](docs/screenshots/organizers.png) |
 
-| FAQ | Organizers & team |
-| --- | --- |
-| ![FAQ section](docs/screenshots/faq.png) | ![Organizers and team section](docs/screenshots/organizers.png) |
-
-| Footer / registration |
+| Footer |
 | --- |
-| ![Footer and registration section](docs/screenshots/footer.png) |
+| ![Footer section](docs/screenshots/footer.png) |
 
 ## Tech stack
 
@@ -91,7 +86,7 @@ whitmhack-site/
 │   ├── components/              # One file per section/UI piece, each with a co-located *.test.jsx
 │   ├── data/siteContent.js      # All page copy, data-driven — see "Filling in real content"
 │   ├── hooks/                   # Shared hooks (e.g. usePrefersReducedMotion)
-│   ├── lib/                     # Pure, DOM-free logic (countdown, tilt, typewriter, WebGL helpers, etc.)
+│   ├── lib/                     # Pure, DOM-free logic (countdown, tilt, WebGL helpers, etc.)
 │   ├── test/setup.js            # Vitest environment setup (jsdom API polyfills)
 │   ├── App.jsx                  # Assembles the page from section components
 │   └── main.jsx                 # React entry point
@@ -100,34 +95,36 @@ whitmhack-site/
 └── vite.config.js               # Includes the Vitest `test` configuration
 ```
 
-## Design system: "Electric Wheat & Cyber Sky"
+## Design system: Navy / White / Gold
 
 Defined in `tailwind.config.js` and used via Tailwind utility classes
-(`bg-deep-space`, `text-electric-wheat`, `font-heading`, etc.). The three
-accent colors were originally full-saturation neon (`#004BFF`, `#00F5FF`,
-unmuted `#FFC627`) — they've since been deepened/desaturated (blue and
-teal) or slightly warmed (wheat) to read as more elegant and less
-"arcade," while keeping the same three hue families so the brand is still
-recognizable. Two muted neutrals were added alongside them for
-secondary/inactive content that shouldn't compete with the accents.
+(`bg-deep-space`, `text-electric-wheat`, `font-heading`, etc.). The whole
+site runs on a strict three-color system:
+
+- **Navy `#010E30`** — page background and all dark surfaces
+- **White `#FFFFFF`** — every piece of text
+- **Gold `#FFC627`** — the single accent hue (Whitman Yellow)
+
+Earlier iterations of this design used Whitman Blue `#002868`, a Light
+Blue `#6CB2E2`, near-white Cool Grey text, and various gradient effects;
+all of those were removed. Legacy token names (`silicon-blue`,
+`cyber-blue`, `laser-teal`) are kept so existing markup doesn't churn,
+but every token now resolves to one of the three colors above.
 
 A handful of canvas/WebGL-driven effects (`MatrixRain.jsx`,
-`LiquidAvatar.jsx`, `RippleText.jsx`'s texture drawing, the
-`EdgeLightFrame.jsx` conic-gradient) can't reference Tailwind classes —
-canvas `fillStyle`/CSS custom-property values need real color strings —
-so those few files keep their own hardcoded copies of these hex values in
-sync by hand instead.
+`LiquidAvatar.jsx`) can't reference Tailwind classes — canvas
+`fillStyle`/CSS custom-property values need real color strings — so those
+few files keep their own hardcoded copies of these hex values in sync by
+hand instead.
 
 | Token            | Hex       | Use                                        |
 | ---------------- | --------- | ------------------------------------------ |
-| `deep-space`     | `#010C24` | Background                                 |
-| `silicon-blue`   | `#0A193F` | Cards / panels                             |
-| `cyber-blue`     | `#2C4C96` | Primary accent / brand                     |
-| `electric-wheat` | `#E2A936` | Secondary accent, CTAs/highlights          |
-| `laser-teal`     | `#2C8D96` | Supporting accent, active states           |
-| `walla-mist`     | `#EFF2F9` | Body text on dark backgrounds              |
-| `parchment`      | `#C7BA97` | Warm muted neutral — secondary footer text |
-| `slate-mist`     | `#7A84A3` | Cool muted neutral — inactive nav titles   |
+| `deep-space`     | `#010E30` | Background — Navy                         |
+| `silicon-blue`   | `#010E30` | Cards / panels — Navy alias               |
+| `cyber-blue`     | `#010E30` | Decorative dark accents — Navy alias      |
+| `electric-wheat` | `#FFC627` | The one accent, CTAs/highlights — Gold    |
+| `laser-teal`     | `#FFC627` | Accent on dark, active states — Gold alias |
+| `walla-mist`     | `#FFFFFF` | Body text on dark backgrounds — White |
 
 **Fonts** — an authoritative, editorial/newspaper pairing:
 
@@ -145,9 +142,8 @@ other:
 
 - **Before launch / no backend running:** edit
   [`src/data/siteContent.js`](./src/data/siteContent.js) directly and
-  rebuild. Search it for `TBD` comments — each one marks a handful of
-  specifics (per-track prize amounts, the registration link, one FAQ
-  answer) that aren't locked in yet by the planning docs. See
+  rebuild. Search it for `TBD` comments — each one marks specifics (the
+  registration link, etc.) that aren't locked in yet by the planning docs. See
   [`MAINTENANCE.md`](./MAINTENANCE.md) for a section-by-section
   breakdown of what's still open.
 - **After launch, with the backend running:** use the
@@ -196,11 +192,10 @@ separate server to keep running.
 - **Dashboard** (`src/components/AdminDashboard.jsx`): a collapsible,
   section-by-section editing UI at `/admin/dashboard`. Redirects to the
   login page if you're not authenticated — the edit UI is never shown
-  without a valid token. Card-style lists (About's bento cards, Tracks,
-  FAQ questions, Organizers, and the Footer's resource/social links) can
-  each be added to or removed from directly in the dashboard, not just
-  edited in place — removing asks for confirmation since it can't be
-  undone once saved.
+  without a valid token. Card-style lists (the Awards prizes, Organizers,
+  and the Footer's resource/social links) can each be added to or removed
+  from directly in the dashboard, not just edited in place — removing asks
+  for confirmation since it can't be undone once saved.
 - **Login page** (`src/components/AdminLogin.jsx`): a clean password
   prompt at `/admin`, styled with the same design system.
 
@@ -323,7 +318,7 @@ and password, nothing installed.
 
 ### Letting teammates help
 
-- **To edit content** (organizers, tracks, FAQ, etc.): just share the
+- **To edit content** (organizers, awards, etc.): just share the
   deployed URL and the admin password. That's it — no GitHub or Vercel
   account needed.
 - **To edit code**: add them as collaborators on the GitHub repo
@@ -349,7 +344,7 @@ request against `main`.
 
 - Every animated section respects `prefers-reduced-motion` (global
   Framer Motion config plus manual fallbacks for the matrix rain canvas
-  and the FAQ text-scramble effect).
+  and the LiquidAvatar ripple effect).
 - The whole page passes an automated `axe-core` audit and is fully
   operable by keyboard alone (see `e2e/accessibility.spec.js`).
 - The hero background used to be a WebGL particle field (Three.js +
@@ -358,31 +353,13 @@ request against `main`.
   and those dependencies were removed entirely — the whole app now
   ships as a single ~377KB chunk with no bundle-size warnings.
 
-## Navigation
+## Page structure
 
-`SpineNav.jsx` is hidden by default. The only thing on screen at any
-scroll position, on every viewport size, is a small "Menu" label fixed to
-the top-left corner. Clicking it reveals every section title as one
-block — horizontal text, anchored to the far left, vertically centered
-as a group — and clicking it again (it becomes "Close") hides it. The
-active section is still tracked continuously via `IntersectionObserver`
-even while the panel is closed, so whichever title is highlighted is
-already correct the moment it's opened. Clicking a title closes the
-panel and scrolls to that section (explicitly, via `scrollIntoView` —
-not the anchor's own default behavior, since closing the panel unmounts
-the link in the same tick and that race can silently eat the scroll).
-
-Both the trigger label and every title in the revealed block "emerge"
-using the same liquid-distortion technique as `LiquidAvatar.jsx`'s
-team-photo hover effect — see `RippleText.jsx`, which reuses that exact
-WebGL shader (compiled via `src/lib/webgl.js`), but centers the ripple
-and drives its strength from a settle-over-time animation instead of
-cursor position. Titles are staggered (90ms apart) so they settle into
-place one after another instead of all at once, and the trigger label
-ripples again on every click since its own text flips between
-"Menu"/"Close", which re-triggers the same reveal animation. Falls back
-to plain, instantly-visible text under `prefers-reduced-motion`, same as
-every other WebGL/canvas effect on this site.
+The page is a single, linear scroll — there's no fixed site navigation
+or Menu overlay anymore (the old `SpineNav`/`RippleText` navigation was
+removed). Visitors move through the hero → Awards & Prizes → Schedule →
+Team → Register sections in order, and the Register buttons anchor
+to `#register`.
 
 ## Micro-interactions
 
@@ -393,11 +370,11 @@ every other WebGL/canvas effect on this site.
   (`src/components/MatrixRain.jsx`). Each stream flashes brighter
   (0.6–0.7 alpha) the instant it spawns, then cools to its settled
   baseline.
-- **3D cursor-tilt cards** (About section bento grid) — pointer position
-  within a card drives real rotateX/rotateY via `src/lib/tilt.js`
-  (`computeTiltRotation`, unit tested) + a Framer Motion spring.
-- **Animated gradient headlines** — `.text-gradient-shift` in
-  `src/index.css` (hero title + every major section heading).
+- **Variable-font hero headline** — “WhitHack 2026” renders in solid gold,
+  italic **Lora** (Whitman's official headline face): the year is larger
+  than the word, and hovering eases the whole headline from heavy/italic
+  to regular/upright while the chunky offset shadow snaps flat
+  (`hero-vf` in `src/index.css`). Section headings stay serif gold.
 - **Tactile CTA buttons** — layered box-shadow that shrinks on `:active`
   (Register buttons in the hero and footer).
 - **Asymmetric scroll parallax** (Schedule section) — each row's time
@@ -409,41 +386,21 @@ every other WebGL/canvas effect on this site.
   slices two recolored copies of the text via `clip-path`, driven by the
   same JS-tracked hover/focus state already used elsewhere, not raw
   `:hover` (`.glitch-text` in `src/index.css`).
-- **Glass + spinning edge-light + gradient text** (Register buttons,
-  countdown boxes) — a 3-layer stack: `EdgeLightFrame.jsx` renders a
-  clipping wrapper plus a tight, un-blurred spinning conic-gradient ring
-  behind the content (`animate-border-spin`); the interactive element
-  itself sits on top with a frosted-glass background
-  (`.glass-core`/`.glass-core-light`, with an `@supports` fallback to a
-  near-opaque background for browsers without `backdrop-filter`); its
-  text is clipped to a slowly animating linear gradient
-  (`.text-flow-wheat` + `animate-text-flow`). Both custom animations are
-  registered in `tailwind.config.js`.
-- **Liquid-distortion text reveal** (the "Menu" trigger and every title
-  in the nav panel) — see [Navigation](#navigation) above; `RippleText.jsx`
-  reuses `LiquidAvatar.jsx`'s WebGL shader for a settle-into-place ripple
-  instead of a hover effect.
+- **Gold frame + brand core + flat white/gold text** (Register buttons,
+  countdown boxes) — `EdgeLightFrame.jsx` renders a clipping wrapper with
+  a flat Whitman Yellow hairline ring behind the content. The Register
+  buttons sit on top with a frosted-glass background (`.glass-core`, with
+  an `@supports` fallback to a near-opaque background for browsers
+  without `backdrop-filter`); the countdown cells are solid navy
+  (`bg-silicon-blue`, same #010E30 as the page, outlined by the gold
+  ring). Both carry flat text — gold on the buttons, white on the
+  countdown digits.
 - **WebGL liquid-distortion avatars** (Organizers & Team section) — a
   hand-written WebGL shader (no Three.js) ripples each placeholder team
   photo around the cursor (`src/components/LiquidAvatar.jsx`); the
-  placeholder "photo" itself (gradient + initials) is generated on a 2D
-  canvas and uploaded as the WebGL texture.
-- **UI sounds, matched per effect** — synthesized via the Web Audio API
-  (`src/lib/uiSounds.js`, no audio assets needed: tones are frequency
-  sweeps, textures are filtered white-noise bursts), gated by a footer
-  toggle (`SoundContext`/`SoundToggle`) that defaults to **off** and
-  persists to `localStorage`. Each hover/animation effect gets its own
-  sound rather than one generic click: a high, quiet tick per character
-  as the hero typewriter types/deletes (`TypewriterHeadline.jsx`), a
-  two-part "droplet" sweep on liquid-avatar hover (`LiquidAvatar.jsx`), a
-  filtered-noise "whoosh" on the About bento tilt (`AboutSection.jsx`),
-  and a noise-burst-plus-random-blips "signal breaking up" static on the
-  Register CTA / track-card glitch hover (`Hero.jsx`, `TracksSection.jsx`).
-- **Typewriter subheadline** — cycles through `hero.taglines` forever
-  (`src/lib/typewriter.js` is a pure, fully unit-tested state machine;
-  `useTypewriter` just drives it on a timer). The animated line is
-  `aria-hidden`; a static, visually-hidden paragraph carries the same
-  copy once for screen readers.
+  placeholder "photo" itself (flat brand color — Whitman Yellow or White —
+  + initials) is generated on a 2D canvas and uploaded as the WebGL
+  texture.
 
 All of the above fall back to a static/instant state under
 `prefers-reduced-motion: reduce`.

@@ -18,43 +18,27 @@ test('a visitor can land, explore every section, and reach registration', async 
   await page.goto('/')
 
   // 1. Hero: title, countdown, and CTA are visible immediately.
-  await expect(page.getByRole('heading', { name: 'WhitmHack 2026' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'WhitHack 2026' })).toBeVisible()
   await expect(page.getByRole('timer')).toBeVisible()
 
-  // 2. About: bento grid reveals as it scrolls into view.
-  const about = page.getByTestId('about-section')
-  await about.scrollIntoViewIfNeeded()
-  await expect(about).toHaveAttribute('data-in-view', 'true')
-  await expect(page.getByRole('heading', { name: /built to bridge campus and industry/i })).toBeVisible()
+  // 2. Awards: the placement prizes and participation certificate are present.
+  const firstAward = page.getByTestId('track-card-first-place')
+  await firstAward.scrollIntoViewIfNeeded()
+  await expect(firstAward).toContainText('$500')
+  await expect(page.getByTestId('track-card-second-place')).toContainText('$300')
+  await expect(page.getByTestId('track-card-third-place')).toContainText('$100')
+  await expect(page.getByTestId('track-card-participation')).toContainText('Certificate')
 
-  // 3. Tracks: the auto-scrolling marquee pauses and activates a card on
-  // focus, then Tab moves to the next real (non-duplicate) card.
-  const firstTrack = page.getByTestId('track-card-company-challenges')
-  await firstTrack.scrollIntoViewIfNeeded()
-  await firstTrack.focus()
-  await expect(firstTrack).toHaveAttribute('data-active', 'true')
-  await page.keyboard.press('Tab')
-  await expect(page.getByTestId('track-card-visionary-award')).toBeFocused()
-
-  // 4. Schedule: scroll an event into view, unlock it, open its details.
+  // 3. Schedule: scroll an event into view, unlock it, open its details.
   const scheduleToggle = page.getByTestId('schedule-toggle-d1-kickoff')
   await scheduleToggle.scrollIntoViewIfNeeded()
   await expect(scheduleToggle).toBeEnabled()
   await scheduleToggle.click()
   await expect(scheduleToggle).toHaveAttribute('aria-expanded', 'true')
 
-  // 5. FAQ: open a question and see the real answer settle in.
-  const faqToggle = page.getByTestId('faq-toggle-who-can-attend')
-  await faqToggle.scrollIntoViewIfNeeded()
-  await faqToggle.click()
-  await expect(page.getByTestId('faq-answer-who-can-attend')).toContainText(
-    'Students from colleges and universities across Washington',
-    { timeout: 2000 }
-  )
-
-  // 6. Footer: the register CTA is reachable and points at the register anchor.
-  const footerRegister = page.locator('footer').getByRole('link', { name: 'Register' })
-  await footerRegister.scrollIntoViewIfNeeded()
-  await expect(footerRegister).toBeVisible()
-  await expect(footerRegister).toHaveAttribute('href', '#register')
+  // 5. Footer: resource/social links and the organizers line are reachable.
+  const footer = page.locator('footer')
+  await footer.scrollIntoViewIfNeeded()
+  await expect(footer).toContainText('WhitHack · Whitman College')
+  await expect(footer.getByRole('link', { name: 'GitHub' })).toBeVisible()
 })

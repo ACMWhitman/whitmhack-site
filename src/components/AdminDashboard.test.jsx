@@ -125,26 +125,6 @@ describe('AdminDashboard', () => {
     expect(screen.queryByText(firstOrganizer.name)).not.toBeInTheDocument()
   })
 
-  it('supports the same add/remove behavior in a different section (FAQ)', async () => {
-    window.localStorage.setItem(STORAGE_KEY, 'abc123')
-    vi.stubGlobal(
-      'fetch',
-      vi.fn().mockResolvedValue({ ok: true, json: async () => ({ ...siteContent }) })
-    )
-    const firstQuestion = siteContent.faqSection.questions[0]
-
-    renderDashboard()
-    await screen.findByText('Edit Content')
-    fireEvent.click(screen.getByRole('button', { name: /^FAQ/ }))
-
-    fireEvent.click(screen.getByRole('button', { name: '+ Add question' }))
-    expect(screen.getAllByText('New question').length).toBeGreaterThan(0)
-
-    vi.spyOn(window, 'confirm').mockReturnValue(true)
-    fireEvent.click(screen.getByRole('button', { name: `Remove ${firstQuestion.question}` }))
-    expect(screen.queryByText(firstQuestion.question)).not.toBeInTheDocument()
-  })
-
   it('includes newly added cards in the saved payload', async () => {
     window.localStorage.setItem(STORAGE_KEY, 'abc123')
     const fetchMock = vi.fn().mockImplementation((url) => {

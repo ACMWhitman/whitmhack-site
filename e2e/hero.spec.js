@@ -4,7 +4,7 @@ test.describe('Hero section', () => {
   test('shows the title, countdown, and register CTA on load', async ({ page }) => {
     await page.goto('/')
 
-    await expect(page.getByRole('heading', { name: 'WhitmHack 2026' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'WhitHack 2026' })).toBeVisible()
     await expect(page.getByRole('timer')).toBeVisible()
     await expect(page.getByRole('link', { name: 'Register Now' })).toBeVisible()
   })

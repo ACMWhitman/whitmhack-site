@@ -37,9 +37,9 @@ export function CountdownClock({ targetDate }) {
       ) : (
         UNITS.map(({ key, label }) => (
           <EdgeLightFrame key={key} className="rounded-xl">
-            <div className="glass-core-light flex flex-col items-center rounded-xl border border-white/20 px-3 py-2 backdrop-blur-md sm:px-5 sm:py-3">
+            <div className="flex flex-col items-center rounded-xl bg-silicon-blue px-3 py-2 sm:px-5 sm:py-3">
               <span
-                className="text-flow-wheat animate-text-flow font-subhead text-2xl font-extrabold tabular-nums sm:text-4xl"
+                className="text-white font-subhead text-2xl font-extrabold tabular-nums sm:text-4xl"
                 data-testid={`countdown-${key}`}
               >
                 {String(countdown[key]).padStart(2, '0')}

@@ -39,13 +39,10 @@ describe('Hero', () => {
     expect(screen.getByRole('timer')).toBeInTheDocument()
   })
 
-  it('renders the typewriter tagline with a static screen-reader fallback', () => {
+  it('renders the conference eyebrow above the logo and the date under the description', () => {
     renderHero()
-    expect(screen.getByTestId('typewriter-display')).toBeInTheDocument()
-    // The sr-only paragraph carries every tagline as plain, non-animated text.
-    for (const tagline of hero.taglines) {
-      expect(screen.getByText(new RegExp(tagline.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))).toBeInTheDocument()
-    }
+    expect(screen.getByText(hero.context)).toBeInTheDocument()
+    expect(screen.getByText(hero.date)).toBeInTheDocument()
   })
 
   it('glitches the CTA label on hover and settles back on mouse leave', () => {
@@ -62,20 +59,19 @@ describe('Hero', () => {
     expect(label).not.toHaveClass('is-glitching')
   })
 
-  it('gives the register CTA the glass core and flowing gradient text', () => {
+  it('gives the register CTA the glass core and flat gold label text', () => {
     renderHero()
     const cta = screen.getByRole('link', { name: hero.ctaLabel })
     const label = screen.getByText(hero.ctaLabel)
 
     expect(cta).toHaveClass('glass-core')
-    expect(label).toHaveClass('text-flow-wheat')
-    expect(label).toHaveClass('animate-text-flow')
+    expect(label).toHaveClass('text-electric-wheat')
   })
 
-  it('wraps the register CTA in a spinning edge-light frame', () => {
+  it('wraps the register CTA in a gold frame', () => {
     renderHero()
     const cta = screen.getByRole('link', { name: hero.ctaLabel })
-    // EdgeLightFrame's decorative gradient layer is a sibling of the real
+    // EdgeLightFrame's decorative gold layer is a sibling of the real
     // link, inside the same wrapper.
     expect(cta.parentElement.querySelector('[aria-hidden="true"]')).not.toBeNull()
   })

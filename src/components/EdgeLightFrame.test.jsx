@@ -12,7 +12,7 @@ describe('EdgeLightFrame', () => {
     expect(screen.getByRole('button', { name: 'Register Now' })).toBeInTheDocument()
   })
 
-  it('hides the decorative spinning gradient layer from assistive tech', () => {
+  it('hides the decorative gold frame layer from assistive tech', () => {
     const { container } = render(
       <EdgeLightFrame>
         <span>content</span>

@@ -5,55 +5,52 @@ export default {
   theme: {
     extend: {
       colors: {
-        'deep-space': '#010C24',
-        'silicon-blue': '#0A193F',
-        // Deepened/desaturated from the original neon versions (#004BFF,
-        // #00F5FF) — same hue family so the brand still reads, but richer
-        // and quieter instead of full-saturation "arcade" tones. Both
-        // still clear WCAG AA (4.5:1) as small text against deep-space.
-        'cyber-blue': '#2C4C96',
-        'laser-teal': '#2C8D96',
-        // Warmed slightly from the original #FFC627 — a touch more
-        // antique-gold, less lemon-yellow.
-        'electric-wheat': '#E2A936',
-        'walla-mist': '#EFF2F9',
-        // Muted neutrals — for secondary/inactive content that shouldn't
-        // compete with the three accent colors above.
-        parchment: '#C7BA97',
-        'slate-mist': '#7A84A3',
+        // Core system:
+        //   Navy #010E30  — page background / dark surfaces
+        //   White #FFFFFF — all text and copy
+        //   Gold #FFC627  — the accent (Whitman Yellow)
+        // Plus one more official brand hue used for card boxes:
+        //   Whitman Blue #002868 (PMS 281) — the award/prize cards.
+        // The legacy token names below are kept so existing markup doesn't
+        // churn, but every token resolves to one of the colors above.
+        'deep-space': '#010E30', // Navy — page background
+        'silicon-blue': '#010E30', // Navy alias — dark panels/cards/timer cells
+        'cyber-blue': '#010E30', // Navy alias — decorative dark accents
+        // Official Whitman Blue (PMS 281) — award & prize card boxes.
+        'whitman-blue': '#002868',
+        // Accent alias — all accent/interactive highlights render in the
+        // single gold hue (this token used to be a cyan/teal).
+        'laser-teal': '#FFC627',
+        // Gold (Whitman Yellow PMS 123) — the accent color.
+        'electric-wheat': '#FFC627',
+        // White — every piece of text.
+        'walla-mist': '#FFFFFF',
       },
       fontFamily: {
-        // Headlines: heavy, high-contrast old-style serif (newspaper masthead feel).
-        heading: ['"Playfair Display"', 'Georgia', 'serif'],
-        // Sub-headlines, eyebrows/kickers, author lines, labels, and buttons.
-        subhead: ['"Libre Franklin"', '"Franklin Gothic Medium"', 'Arial', 'Helvetica', 'sans-serif'],
-        // Body copy — Georgia over Times New Roman for its wider, more legible spacing.
-        body: ['Georgia', '"Times New Roman"', 'serif'],
+        // Whitman's official headline face — Lora (elegant serif). Used for
+        // headings, sub-headlines, eyebrows, day labels, and buttons.
+        heading: ['Lora', 'Georgia', 'serif'],
+        subhead: ['Lora', 'Georgia', 'serif'],
+        // Body copy — Montserrat, the guide's accepted free substitute for
+        // the paid Vito (the official geometric sans body face).
+        body: ['Montserrat', 'Arial', 'Helvetica', 'sans-serif'],
         // Reserved for the decorative "falling code" accent only — not part
         // of the document's real typography.
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       boxShadow: {
-        'glow-blue': '0 20px 50px rgba(44, 76, 150, 0.35)',
-        'glow-wheat': '0 20px 50px rgba(226, 169, 54, 0.35)',
-        'glow-teal': '0 20px 50px rgba(44, 141, 150, 0.35)',
+        'glow-blue': '0 20px 50px rgba(1, 14, 48, 0.45)',
+        'glow-wheat': '0 20px 50px rgba(255, 198, 39, 0.3)',
+        'glow-teal': '0 20px 50px rgba(255, 198, 39, 0.3)',
       },
       keyframes: {
         'pulse-glow': {
           '0%, 100%': { opacity: 1 },
           '50%': { opacity: 0.6 },
         },
-        'text-flow': {
-          '0%': { 'background-position': '0% center' },
-          '100%': { 'background-position': '200% center' },
-        },
       },
       animation: {
         'pulse-glow': 'pulse-glow 2.5s ease-in-out infinite',
-        // The edge-light ring reuses Tailwind's built-in `spin` keyframe
-        // (just a plain 360deg rotation) at a slower, calmer 4s pace.
-        'border-spin': 'spin 4s linear infinite',
-        'text-flow': 'text-flow 3s linear infinite',
       },
     },
   },

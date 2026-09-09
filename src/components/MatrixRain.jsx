@@ -5,8 +5,8 @@ const FONT_SIZE = 16
 const GLYPHS = '01'
 const FRAME_INTERVAL_MS = 60
 const TRAIL_FADE_ALPHA = 0.08
-const RAIN_COLOR_RGB = '44, 141, 150' // laser-teal
-const BACKGROUND_RGB = '1, 12, 36' // deep-space
+const RAIN_COLOR_RGB = '255, 198, 39' // electric-wheat (Whitman Yellow #FFC627)
+const BACKGROUND_RGB = '1, 14, 48' // deep-space (Whitman Navy #010E30)
 
 // Each stream flashes brighter the instant it spawns at the top, then
 // cools down to the settled, barely-there baseline it falls at for the
@@ -102,7 +102,7 @@ export function MatrixRain() {
         className="absolute inset-0 opacity-[0.14]"
         style={{
           backgroundImage:
-            'repeating-linear-gradient(180deg, rgba(44,141,150,0.8) 0px, rgba(44,141,150,0.8) 1px, transparent 1px, transparent 18px)',
+            'repeating-linear-gradient(180deg, rgba(255,198,39,0.8) 0px, rgba(255,198,39,0.8) 1px, transparent 1px, transparent 18px)',
         }}
       />
     )

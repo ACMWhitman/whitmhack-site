@@ -31,7 +31,7 @@ export function AdminLogin() {
     <div className="flex min-h-screen items-center justify-center bg-deep-space px-6">
       <div className="w-full max-w-sm">
         <div className="rounded-2xl border border-white/15 bg-silicon-blue/80 p-8 backdrop-blur-md">
-          <h1 className="font-heading text-gradient-shift text-center text-2xl font-extrabold uppercase tracking-wide">
+          <h1 className="font-heading text-electric-wheat text-center text-2xl font-extrabold uppercase tracking-wide">
             Admin Login
           </h1>
           <p className="mt-2 text-center font-body text-sm text-walla-mist/60">

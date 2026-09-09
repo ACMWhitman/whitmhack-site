@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 
 const mockUsePrefersReducedMotion = vi.fn()
 vi.mock('../hooks/usePrefersReducedMotion', () => ({
@@ -19,6 +19,14 @@ function renderOrganizersSection() {
 }
 
 describe('OrganizersSection', () => {
+  it('renders a static team grid, not a scrolling marquee', () => {
+    mockUsePrefersReducedMotion.mockReturnValue(true)
+    renderOrganizersSection()
+    const list = within(screen.getByTestId('organizers-list'))
+    expect(list.getAllByRole('listitem')).toHaveLength(organizersSection.organizers.length)
+    expect(screen.getAllByRole('list', { name: 'Team members' })).toHaveLength(1)
+  })
+
   it('renders every organizer from the data array, not hardcoded per-card', () => {
     mockUsePrefersReducedMotion.mockReturnValue(true)
     renderOrganizersSection()
@@ -29,19 +37,9 @@ describe('OrganizersSection', () => {
     }
   })
 
-  it('has the section id spine-nav links against', () => {
+  it('renders the section with its expected id', () => {
     mockUsePrefersReducedMotion.mockReturnValue(true)
     renderOrganizersSection()
     expect(document.getElementById('organizers')).toBeInTheDocument()
-  })
-
-  it('renders a second, aria-hidden copy of every organizer so the marquee loops seamlessly', () => {
-    mockUsePrefersReducedMotion.mockReturnValue(false)
-    renderOrganizersSection()
-    for (const person of organizersSection.organizers) {
-      expect(screen.getAllByText(person.name)).toHaveLength(2)
-    }
-    // Accessibility-tree-aware queries should still only ever see one team row.
-    expect(screen.getAllByRole('list', { name: 'Team members' })).toHaveLength(1)
   })
 })

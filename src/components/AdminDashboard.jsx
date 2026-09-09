@@ -158,7 +158,7 @@ export function AdminDashboard() {
     <div className="min-h-screen bg-deep-space px-6 py-12">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 flex items-center justify-between">
-          <h1 className="font-heading text-gradient-shift text-2xl font-extrabold uppercase tracking-wide">
+          <h1 className="font-heading text-electric-wheat text-2xl font-extrabold uppercase tracking-wide">
             Edit Content
           </h1>
           <button
@@ -178,46 +178,13 @@ export function AdminDashboard() {
         <div className="space-y-4">
           {/* Hero section */}
           <SectionGroup label="Hero" defaultOpen>
-            <Field label="Eyebrow" value={localContent.hero?.eyebrow || ''} onChange={(v) => updateField('hero', 'eyebrow', v)} />
+            <Field label="Context line" value={localContent.hero?.context || ''} onChange={(v) => updateField('hero', 'context', v)} />
+            <Field label="Date line" value={localContent.hero?.date || ''} onChange={(v) => updateField('hero', 'date', v)} />
             <Field label="Title" value={localContent.hero?.title || ''} onChange={(v) => updateField('hero', 'title', v)} />
             <Field label="Subtitle" value={localContent.hero?.subtitle || ''} onChange={(v) => updateField('hero', 'subtitle', v)} multiline />
             <Field label="CTA Label" value={localContent.hero?.ctaLabel || ''} onChange={(v) => updateField('hero', 'ctaLabel', v)} />
             <Field label="CTA Href" value={localContent.hero?.ctaHref || ''} onChange={(v) => updateField('hero', 'ctaHref', v)} />
             <Field label="Target Date" value={localContent.hero?.targetDate || ''} onChange={(v) => updateField('hero', 'targetDate', v)} />
-            <div>
-              <label className="mb-1 block font-subhead text-xs uppercase tracking-widest text-walla-mist/60">Taglines</label>
-              {(localContent.hero?.taglines || []).map((tagline, i) => (
-                <div key={i} className="mb-2">
-                  <EditableText
-                    value={tagline}
-                    onChange={(v) => updateArrayItem('hero', 'taglines', i, '', v)}
-                    isAdmin
-                    className="block w-full rounded bg-deep-space/40 px-3 py-2 font-body text-sm text-walla-mist"
-                    inputClassName="rounded bg-deep-space/60 px-3 py-2 font-body text-sm text-walla-mist border border-laser-teal/50"
-                  />
-                </div>
-              ))}
-            </div>
-          </SectionGroup>
-
-          {/* About section */}
-          <SectionGroup label="About">
-            <Field label="Eyebrow" value={localContent.about?.eyebrow || ''} onChange={(v) => updateField('about', 'eyebrow', v)} />
-            <Field label="Title" value={localContent.about?.title || ''} onChange={(v) => updateField('about', 'title', v)} />
-            {(localContent.about?.bento || []).map((block, i) => (
-              <div key={block.id} className="rounded-lg border border-white/10 p-3">
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <p className="font-subhead text-xs font-bold uppercase tracking-wider text-laser-teal">{block.heading || 'New card'}</p>
-                  <RemoveButton label={`Remove ${block.heading || 'card'}`} onClick={() => removeArrayItem('about', 'bento', i)} />
-                </div>
-                <Field label="Heading" value={block.heading} onChange={(v) => updateArrayItem('about', 'bento', i, 'heading', v)} />
-                <Field label="Body" value={block.body} onChange={(v) => updateArrayItem('about', 'bento', i, 'body', v)} multiline />
-              </div>
-            ))}
-            <AddButton
-              label="Add card"
-              onClick={() => addArrayItem('about', 'bento', { span: 'md', heading: 'New card', body: '' })}
-            />
           </SectionGroup>
 
           {/* Tracks section */}
@@ -245,26 +212,6 @@ export function AdminDashboard() {
                   accent: 'cyber-blue',
                 })
               }
-            />
-          </SectionGroup>
-
-          {/* FAQ section */}
-          <SectionGroup label="FAQ">
-            <Field label="Eyebrow" value={localContent.faqSection?.eyebrow || ''} onChange={(v) => updateField('faqSection', 'eyebrow', v)} />
-            <Field label="Title" value={localContent.faqSection?.title || ''} onChange={(v) => updateField('faqSection', 'title', v)} />
-            {(localContent.faqSection?.questions || []).map((q, i) => (
-              <div key={q.id} className="rounded-lg border border-white/10 p-3">
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <p className="font-subhead text-xs font-bold uppercase tracking-wider text-laser-teal">{q.question || 'New question'}</p>
-                  <RemoveButton label={`Remove ${q.question || 'question'}`} onClick={() => removeArrayItem('faqSection', 'questions', i)} />
-                </div>
-                <Field label="Question" value={q.question} onChange={(v) => updateArrayItem('faqSection', 'questions', i, 'question', v)} />
-                <Field label="Answer" value={q.answer} onChange={(v) => updateArrayItem('faqSection', 'questions', i, 'answer', v)} multiline />
-              </div>
-            ))}
-            <AddButton
-              label="Add question"
-              onClick={() => addArrayItem('faqSection', 'questions', { question: 'New question', answer: '' })}
             />
           </SectionGroup>
 

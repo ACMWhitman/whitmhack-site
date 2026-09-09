@@ -4,13 +4,10 @@ import { SoundProvider } from './context/SoundContext'
 import { AdminProvider } from './context/AdminContext'
 import { ContentProvider } from './context/ContentContext'
 import { Hero } from './components/Hero'
-import { AboutSection } from './components/AboutSection'
 import { TracksSection } from './components/TracksSection'
 import { ScheduleSection } from './components/ScheduleSection'
-import { FaqSection } from './components/FaqSection'
 import { OrganizersSection } from './components/OrganizersSection'
 import { FooterSection } from './components/FooterSection'
-import { SpineNav } from './components/SpineNav'
 import { AdminLogin } from './components/AdminLogin'
 import { AdminDashboard } from './components/AdminDashboard'
 
@@ -19,13 +16,10 @@ function PublicSite() {
     <MotionConfig reducedMotion="user">
       <ContentProvider>
         <SoundProvider>
-          <SpineNav />
           <main>
             <Hero />
-            <AboutSection />
             <TracksSection />
             <ScheduleSection />
-            <FaqSection />
             <OrganizersSection />
             <FooterSection />
           </main>

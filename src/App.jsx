@@ -1,15 +1,12 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { MotionConfig } from 'framer-motion'
 import { SoundProvider } from './context/SoundContext'
-import { AdminProvider } from './context/AdminContext'
 import { ContentProvider } from './context/ContentContext'
 import { Hero } from './components/Hero'
 import { TracksSection } from './components/TracksSection'
 import { ScheduleSection } from './components/ScheduleSection'
 import { OrganizersSection } from './components/OrganizersSection'
 import { FooterSection } from './components/FooterSection'
-import { AdminLogin } from './components/AdminLogin'
-import { AdminDashboard } from './components/AdminDashboard'
 
 function PublicSite() {
   return (
@@ -35,29 +32,11 @@ function PublicSite() {
   )
 }
 
-function AdminRoute() {
-  return (
-    <AdminProvider>
-      <AdminLogin />
-    </AdminProvider>
-  )
-}
-
-function AdminDashboardRoute() {
-  return (
-    <AdminProvider>
-      <AdminDashboard />
-    </AdminProvider>
-  )
-}
-
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<PublicSite />} />
-        <Route path="/admin" element={<AdminRoute />} />
-        <Route path="/admin/dashboard" element={<AdminDashboardRoute />} />
       </Routes>
     </BrowserRouter>
   )

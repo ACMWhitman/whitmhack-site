@@ -27,7 +27,7 @@ export function CountdownClock({ targetDate }) {
           ? 'WhitmHack has started'
           : `${countdown.days} days, ${countdown.hours} hours, ${countdown.minutes} minutes, and ${countdown.seconds} seconds until WhitmHack`
       }
-      className="flex gap-3 sm:gap-6"
+      className="inline-grid grid-cols-2 gap-3 min-[400px]:grid-cols-4 sm:gap-6"
     >
       {countdown.isComplete ? (
         <p className="font-heading text-2xl font-bold text-electric-wheat">

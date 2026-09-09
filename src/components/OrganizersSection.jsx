@@ -24,7 +24,7 @@ export function OrganizersSection() {
     <section
       id="organizers"
       aria-label="Organizers and team"
-      className="mx-auto max-w-6xl px-6 py-24"
+      className="mx-auto max-w-6xl px-6 py-16 sm:py-24"
     >
       <p className="text-center font-subhead text-xs uppercase tracking-[0.3em] text-laser-teal">
         {organizersSection.eyebrow}

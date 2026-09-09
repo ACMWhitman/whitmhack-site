@@ -60,7 +60,7 @@ function TimelineEvent({ event, alignRight }) {
             setIsOpen((open) => !open)
           }}
           className={cn(
-            'mt-2 cursor-pointer rounded-md py-2 font-heading text-lg font-bold transition-colors duration-500 disabled:cursor-not-allowed md:text-xl',
+            'mt-2 inline-flex min-h-[44px] cursor-pointer items-center rounded-md px-3 py-2 font-heading text-lg font-bold transition-colors duration-500 disabled:cursor-not-allowed md:text-xl',
             isActive ? 'text-white' : 'text-white/60'
           )}
         >
@@ -106,7 +106,7 @@ export function ScheduleSection() {
     <section
       id="schedule"
       aria-label="Schedule"
-      className="relative mx-auto max-w-4xl px-6 py-24"
+      className="relative mx-auto max-w-4xl px-6 py-16 sm:py-24"
     >
       <p className="text-center font-subhead text-xs uppercase tracking-[0.3em] text-laser-teal">
         {scheduleSection.eyebrow}

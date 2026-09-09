@@ -7,7 +7,7 @@ export function FooterSection() {
     <footer
       id="register"
       aria-label="Site footer"
-      className="border-t border-white/10 px-6 py-16"
+      className="border-t border-white/10 px-6 py-12 sm:py-16"
     >
       <div className="mx-auto grid max-w-4xl grid-cols-1 gap-10 text-center sm:grid-cols-3 sm:text-left">
         <div>

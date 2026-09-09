@@ -14,6 +14,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* Root-level clip so no child can ever create a page-wide horizontal
+     scrollbar on small phones (belt-and-suspenders with the body rule). */
+  overflow-x: clip;
   /* Give taps a brand-gold flash instead of the default gray highlight so
      feedback reads as part of the design on touch devices. */
   -webkit-tap-highlight-color: rgba(255, 198, 39, 0.3);

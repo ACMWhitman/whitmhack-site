@@ -74,7 +74,7 @@ export function Hero() {
     <section
       id="hero"
       aria-label="WhitHack hero"
-      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden px-6 text-center"
+      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden px-6 text-center supports-[min-height:100svh]:min-h-svh"
     >
       <MatrixRain />
 
@@ -92,8 +92,12 @@ export function Hero() {
           ref={headlineRef}
           className="text-balance font-heading text-electric-wheat text-5xl font-extrabold uppercase tracking-wide sm:text-7xl"
         >
-          <span className="hero-vf text-4xl sm:text-6xl md:text-8xl">{hero.title.split(' ')[0]}</span>{' '}
-          <span className="hero-vf text-4xl sm:text-6xl md:text-8xl">{hero.title.split(' ')[1]}</span>
+          <span className="hero-vf text-[clamp(2rem,9vw,3.75rem)] sm:text-6xl md:text-8xl">
+            {hero.title.split(' ')[0]}
+          </span>{' '}
+          <span className="hero-vf text-[clamp(2rem,9vw,3.75rem)] sm:text-6xl md:text-8xl">
+            {hero.title.split(' ')[1]}
+          </span>
         </h1>
 
         <p className="max-w-xl text-balance font-body text-base text-white sm:text-lg">
@@ -116,7 +120,7 @@ export function Hero() {
             onMouseLeave={() => setIsCtaGlitching(false)}
             onFocus={startGlitch}
             onBlur={() => setIsCtaGlitching(false)}
-            className="relative flex items-center justify-center rounded-xl bg-electric-wheat px-12 py-4 font-subhead text-base font-bold uppercase tracking-widest text-deep-space shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-[transform,box-shadow] duration-150 hover:scale-105 hover:shadow-[0_12px_32px_rgba(255,198,39,0.4)] focus-visible:scale-105 active:scale-100 active:translate-y-[2px] active:shadow-[0_3px_10px_rgba(0,0,0,0.3)]"
+            className="relative flex items-center justify-center rounded-xl bg-electric-wheat px-8 py-4 font-subhead text-base font-bold uppercase tracking-widest text-deep-space shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-[transform,box-shadow] duration-150 hover:scale-105 hover:shadow-[0_12px_32px_rgba(255,198,39,0.4)] focus-visible:scale-105 active:scale-100 active:translate-y-[2px] active:shadow-[0_3px_10px_rgba(0,0,0,0.3)] sm:px-12"
           >
             <GlitchText
               text={hero.ctaLabel}

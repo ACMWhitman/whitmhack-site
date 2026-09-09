@@ -149,7 +149,7 @@ export const organizersSection = {
   // headshots once available (see MAINTENANCE.md).
   organizers: [
     { id: 'hayan-saab', name: 'Hayan Saab', role: 'ACM President' },
-    { id: 'nick-twum', name: 'Nick Twum', role: 'ACM Vice-President' },
+    { id: 'nick-twum', name: 'Nick Tsum', role: 'ACM Vice-President' },
     { id: 'tabish-navaid', name: 'Tabish Navaid', role: 'ACM Treasurer' },
     { id: 'patrick-mulikuza', name: 'Patrick Mulikuza', role: 'Website Designer, Board Member' },
     { id: 'ali-abaka', name: 'Ali Papi Abbaka', role: 'Budgeting & Expenses Lead' },

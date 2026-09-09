@@ -22,7 +22,6 @@ export function CountdownClock({ targetDate }) {
   return (
     <div
       role="timer"
-      aria-live="polite"
       aria-label={
         countdown.isComplete
           ? 'WhitmHack has started'

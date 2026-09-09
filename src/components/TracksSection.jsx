@@ -56,12 +56,12 @@ export function TracksSection() {
     <section
       id="tracks"
       aria-label="Awards and prizes"
-      className="mx-auto max-w-6xl px-6 pb-24 pt-2 -mt-24"
+      className="mx-auto max-w-6xl px-6 py-24"
     >
       <p className="text-center font-subhead text-xs uppercase tracking-[0.3em] text-electric-wheat">
         {tracksSection.eyebrow}
       </p>
-      <h2 className="mt-3 text-center font-heading text-electric-wheat text-3xl font-extrabold uppercase tracking-wide sm:text-5xl">
+      <h2 className="text-balance mt-3 text-center font-heading text-electric-wheat text-3xl font-extrabold uppercase tracking-wide sm:text-5xl">
         {tracksSection.title}
       </h2>
 

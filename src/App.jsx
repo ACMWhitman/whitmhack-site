@@ -16,7 +16,13 @@ function PublicSite() {
     <MotionConfig reducedMotion="user">
       <ContentProvider>
         <SoundProvider>
-          <main>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-electric-wheat focus:px-5 focus:py-3 focus:font-subhead focus:text-sm focus:font-bold focus:uppercase focus:tracking-widest focus:text-deep-space"
+          >
+            Skip to content
+          </a>
+          <main id="main">
             <Hero />
             <TracksSection />
             <ScheduleSection />

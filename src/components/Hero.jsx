@@ -90,7 +90,7 @@ export function Hero() {
 
         <h1
           ref={headlineRef}
-          className="whitespace-nowrap font-heading text-electric-wheat text-5xl font-extrabold uppercase tracking-wide sm:text-7xl"
+          className="text-balance font-heading text-electric-wheat text-5xl font-extrabold uppercase tracking-wide sm:text-7xl"
         >
           <span className="hero-vf text-4xl sm:text-6xl md:text-8xl">{hero.title.split(' ')[0]}</span>{' '}
           <span className="hero-vf text-4xl sm:text-6xl md:text-8xl">{hero.title.split(' ')[1]}</span>
@@ -116,7 +116,7 @@ export function Hero() {
             onMouseLeave={() => setIsCtaGlitching(false)}
             onFocus={startGlitch}
             onBlur={() => setIsCtaGlitching(false)}
-            className="relative flex items-center justify-center rounded-xl bg-electric-wheat px-12 py-4 font-subhead text-base font-bold uppercase tracking-widest text-deep-space shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-[transform,box-shadow] duration-150 hover:scale-105 focus-visible:scale-105 active:scale-100 active:translate-y-[2px] active:shadow-[0_3px_10px_rgba(0,0,0,0.3)]"
+            className="relative flex items-center justify-center rounded-xl bg-electric-wheat px-12 py-4 font-subhead text-base font-bold uppercase tracking-widest text-deep-space shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-[transform,box-shadow] duration-150 hover:scale-105 hover:shadow-[0_12px_32px_rgba(255,198,39,0.4)] focus-visible:scale-105 active:scale-100 active:translate-y-[2px] active:shadow-[0_3px_10px_rgba(0,0,0,0.3)]"
           >
             <GlitchText
               text={hero.ctaLabel}

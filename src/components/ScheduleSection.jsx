@@ -60,7 +60,7 @@ function TimelineEvent({ event, alignRight }) {
             setIsOpen((open) => !open)
           }}
           className={cn(
-            'mt-2 font-heading text-lg font-bold transition-colors duration-500 disabled:cursor-not-allowed md:text-xl',
+            'mt-2 cursor-pointer rounded-md py-2 font-heading text-lg font-bold transition-colors duration-500 disabled:cursor-not-allowed md:text-xl',
             isActive ? 'text-white' : 'text-white/60'
           )}
         >
@@ -111,7 +111,7 @@ export function ScheduleSection() {
       <p className="text-center font-subhead text-xs uppercase tracking-[0.3em] text-laser-teal">
         {scheduleSection.eyebrow}
       </p>
-      <h2 className="mt-3 text-center font-heading text-electric-wheat text-3xl font-extrabold uppercase tracking-wide sm:text-5xl">
+      <h2 className="text-balance mt-3 text-center font-heading text-electric-wheat text-3xl font-extrabold uppercase tracking-wide sm:text-5xl">
         {scheduleSection.title}
       </h2>
 

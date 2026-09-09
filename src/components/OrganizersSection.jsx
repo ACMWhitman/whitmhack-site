@@ -29,7 +29,7 @@ export function OrganizersSection() {
       <p className="text-center font-subhead text-xs uppercase tracking-[0.3em] text-laser-teal">
         {organizersSection.eyebrow}
       </p>
-      <h2 className="mt-3 text-center font-heading text-electric-wheat text-3xl font-extrabold uppercase tracking-wide sm:text-5xl">
+      <h2 className="text-balance mt-3 text-center font-heading text-electric-wheat text-3xl font-extrabold uppercase tracking-wide sm:text-5xl">
         {organizersSection.title}
       </h2>
 

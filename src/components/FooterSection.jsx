@@ -26,7 +26,7 @@ export function FooterSection() {
               <li key={link.id}>
                 <a
                   href={link.href}
-                  className="text-sm text-white/70 underline-offset-4 hover:text-electric-wheat hover:underline"
+                  className="text-sm text-white/70 underline-offset-4 transition-colors duration-200 hover:text-electric-wheat hover:underline"
                 >
                   {link.label}
                 </a>
@@ -44,7 +44,7 @@ export function FooterSection() {
               <li key={link.id}>
                 <a
                   href={link.href}
-                  className="text-sm text-white/70 underline-offset-4 hover:text-electric-wheat hover:underline"
+                  className="text-sm text-white/70 underline-offset-4 transition-colors duration-200 hover:text-electric-wheat hover:underline"
                 >
                   {link.label}
                 </a>
